@@ -1,682 +1,2205 @@
 <!DOCTYPE html>
 <html lang="id" class="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>HajirSync — Sync Your Lyrics, Feel the Flow</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 
-  <!-- ============== Favicon ============== -->
-  <link rel="icon" type="image/webp" href="https://i.postimg.cc/JztFxsRH/hajir-logo-putih.webp" />
+    <!-- ============== SEO & META ============== -->
+    <title>HajirSync — Sync Your Lyrics, Feel the Flow | LRC Editor &amp; Audio Syncer</title>
+    <meta name="description" content="HajirSync is a free, offline-first LRC editor and audio syncing tool. Sync lyrics to your music, export .lrc files, and feel the flow." />
+    <meta name="keywords" content="lrc editor, lyric sync, audio syncer, music lyrics, lrc generator, hajirsync, sync lyrics" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://hajirsync.app/" />
 
-  <!-- ============== Tailwind + Fonts ============== -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hajirsync.app/" />
+    <meta property="og:title" content="HajirSync — Sync Your Lyrics, Feel the Flow" />
+    <meta property="og:description" content="Free, offline-first LRC editor and audio syncing tool. Sync lyrics to your music, export .lrc files." />
+    <meta property="og:image" content="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:site_name" content="HajirSync" />
+    <meta property="og:locale" content="id_ID" />
 
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            'bg-primary': { light: '#F8FAFC', dark: '#020617' },
-            'bg-secondary': { light: '#FFFFFF', dark: '#0F172A' },
-            'text-primary': { light: '#020617', dark: '#F1F5F9' },
-            'text-secondary': { light: '#475569', dark: '#94A3B8' },
-            'accent': '#3B82F6',
-            'accent-hover': '#2563EB',
-            'border-color': { light: '#E2E8F0', dark: '#1E293B' },
-          },
-          fontFamily: {
-            'syne': ['Syne', 'sans-serif'],
-            'dm': ['DM Sans', 'sans-serif'],
-            'mono': ['JetBrains Mono', 'monospace'],
-          },
-          animation: {
-            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'slide-in': 'slideIn 0.3s ease-out',
-            'fade-in': 'fadeIn 0.2s ease-out',
-            'bounce-in': 'bounceIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-          },
-          keyframes: {
-            slideIn: { from: { transform: 'translateY(-8px)', opacity: '0' }, to: { transform: 'translateY(0)', opacity: '1' } },
-            fadeIn: { from: { opacity: '0' }, to: { opacity: '1' } },
-            bounceIn: { from: { transform: 'scale(0.9)', opacity: '0' }, to: { transform: 'scale(1)', opacity: '1' } },
-          }
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HajirSync — Sync Your Lyrics, Feel the Flow" />
+    <meta name="twitter:description" content="Free, offline-first LRC editor and audio syncing tool. Sync lyrics to your music, export .lrc files." />
+    <meta name="twitter:image" content="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
+    <meta name="twitter:site" content="@hajirsync" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "HajirSync",
+            "url": "https://hajirsync.app/",
+            "description": "Free, offline-first LRC editor and audio syncing tool. Sync lyrics to your music, export .lrc files.",
+            "applicationCategory": "Multimedia",
+            "operatingSystem": "All",
+            "browserRequirements": "Requires JavaScript",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "author": {
+                "@type": "Person",
+                "name": "HajirSync Team"
+            }
         }
-      }
-    }
-  </script>
+    </script>
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+    <!-- ============== FAVICON ============== -->
+    <link rel="icon" type="image/webp" href="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
 
-    /* ============== Light mode ============== */
-    body.light { background: #F8FAFC; color: #020617; }
-    body.light .card { background: #FFFFFF; border-color: #E2E8F0; }
-    body.light .txt-secondary { color: #475569; }
-    body.light input, body.light textarea, body.light select { background: #F8FAFC; border-color: #E2E8F0; color: #020617; }
-    body.light .preview-pane { background: #F1F5F9; border-color: #E2E8F0; }
-    body.light .seek-track { background: #E2E8F0; }
-    body.light .kbd { background: #E2E8F0; color: #475569; border-color: #CBD5E1; }
-    body.light .logo-img { filter: invert(1) brightness(0); }
-    body.light .hdr { background: rgba(248,250,252,0.92); border-color: #E2E8F0; }
+    <!-- ============== Tailwind + Fonts ============== -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
-    /* ============== Dark mode ============== */
-    body.dark, body:not(.light) { background: #020617; color: #F1F5F9; }
-    body.dark .card { background: #0F172A; border-color: #1E293B; }
-    body.dark .txt-secondary { color: #94A3B8; }
-    body.dark input, body.dark textarea, body.dark select { background: #020617; border-color: #1E293B; color: #F1F5F9; }
-    body.dark .preview-pane { background: #020617; border-color: #1E293B; }
-    body.dark .seek-track { background: #1E293B; }
-    body.dark .kbd { background: #1E293B; color: #94A3B8; border-color: #334155; }
-    body.dark .logo-img { filter: brightness(1); }
-    body.dark .hdr { background: rgba(2,6,23,0.92); border-color: #1E293B; }
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-primary': { light: '#F1F5F9', dark: '#020617' },
+                        'bg-secondary': { light: '#FFFFFF', dark: '#0F172A' },
+                        'text-primary': { light: '#020617', dark: '#F1F5F9' },
+                        'text-secondary': { light: '#475569', dark: '#94A3B8' },
+                        'accent': '#3B82F6',
+                        'accent-hover': '#2563EB',
+                        'border-color': { light: '#E2E8F0', dark: '#1E293B' },
+                        'glass': { light: 'rgba(255,255,255,0.6)', dark: 'rgba(15,23,42,0.7)' },
+                    },
+                    fontFamily: {
+                        'syne': ['Syne', 'sans-serif'],
+                        'dm': ['DM Sans', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-in': 'slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                        'fade-in': 'fadeIn 0.3s ease-out',
+                        'bounce-in': 'bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                        'scale-in': 'scaleIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'shimmer': 'shimmer 2s linear infinite',
+                    },
+                    keyframes: {
+                        slideIn: { from: { transform: 'translateY(-12px)', opacity: '0' }, to: { transform: 'translateY(0)',
+                                opacity: '1' } },
+                        fadeIn: { from: { opacity: '0' }, to: { opacity: '1' } },
+                        bounceIn: { from: { transform: 'scale(0.85)', opacity: '0' }, to: { transform: 'scale(1)',
+                                opacity: '1' } },
+                        scaleIn: { from: { transform: 'scale(0.92)', opacity: '0' }, to: { transform: 'scale(1)',
+                                opacity: '1' } },
+                        float: { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-6px)' } },
+                        glow: { from: { boxShadow: '0 0 8px rgba(59,130,246,0.2)' }, to: { boxShadow: '0 0 24px rgba(59,130,246,0.5)' } },
+                        shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+                    }
+                }
+            }
+        }
+    </script>
 
-    .card { border-width: 1px; border-style: solid; border-radius: 12px; transition: background 0.3s, border-color 0.3s; }
-    .btn-accent { background: #3B82F6; color: white; transition: all 0.15s ease; }
-    .btn-accent:hover { background: #2563EB; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(59,130,246,0.35); }
-    .btn-accent:active { transform: translateY(0); }
-    .btn-ghost { transition: all 0.15s ease; }
-    .btn-ghost:hover { background: rgba(59,130,246,0.12); }
-    input, textarea, select { transition: all 0.15s ease; outline: none; }
-    input:focus, textarea:focus, select:focus { border-color: #3B82F6 !important; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
-    .seek-bar { -webkit-appearance: none; appearance: none; height: 4px; border-radius: 2px; cursor: pointer; background: transparent; }
-    .seek-bar::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #3B82F6; cursor: pointer; box-shadow: 0 0 0 2px rgba(59,130,246,0.3); transition: transform 0.1s; }
-    .seek-bar::-webkit-slider-thumb:hover { transform: scale(1.2); }
-    .seek-bar::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #3B82F6; cursor: pointer; border: none; }
-    .seek-track { position: relative; height: 4px; border-radius: 2px; overflow: hidden; }
-    .seek-fill { position: absolute; left: 0; top: 0; height: 100%; background: #3B82F6; border-radius: 2px; pointer-events: none; transition: width 0.1s linear; }
-    .lyric-line { padding: 6px 10px; border-radius: 6px; cursor: pointer; transition: all 0.15s ease; font-family: 'DM Sans', sans-serif; line-height: 1.6; }
-    .lyric-line:hover { background: rgba(59,130,246,0.08); }
-    .lyric-line.active { background: rgba(59,130,246,0.15); color: #3B82F6; font-weight: 600; }
-    .lyric-line.has-timestamp { border-left: 3px solid #3B82F6; }
-    .lyric-line.no-timestamp { border-left: 3px solid transparent; opacity: 0.6; }
-    .timestamp-badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(59,130,246,0.15); color: #3B82F6; border-radius: 4px; padding: 1px 5px; margin-right: 6px; flex-shrink: 0; }
-    .preview-line { font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; padding: 2px 0; }
-    .preview-line.active-preview { color: #3B82F6; font-weight: 600; }
-    .toast { position: fixed; bottom: 24px; right: 24px; z-index: 9999; padding: 12px 20px; border-radius: 10px; background: #1E293B; color: #F1F5F9; font-size: 14px; font-family: 'DM Sans', sans-serif; box-shadow: 0 8px 32px rgba(0,0,0,0.3); animation: slideIn 0.3s ease-out; transition: opacity 0.3s; display: flex; align-items: center; gap: 8px; max-width: 320px; }
-    .toast.success { border-left: 3px solid #22C55E; }
-    .toast.error { border-left: 3px solid #EF4444; }
-    .toast.info { border-left: 3px solid #3B82F6; }
-    body.light .toast { background: #0F172A; }
-    .progress-bar { height: 3px; background: #3B82F6; transition: width 0.3s ease; border-radius: 2px; }
-    .kbd { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 2px 6px; border-radius: 4px; border-width: 1px; border-style: solid; display: inline-block; }
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 9000; display: flex; align-items: center; justify-content: center; padding: 16px; }
-    .modal { max-width: 520px; width: 100%; max-height: 80vh; overflow-y: auto; border-radius: 16px; }
-    body.dark .modal { background: #0F172A; border: 1px solid #1E293B; }
-    body.light .modal { background: #FFFFFF; border: 1px solid #E2E8F0; }
-    .hdr { position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); border-bottom-width: 1px; border-bottom-style: solid; }
-    .waveform-bar { display: inline-block; width: 3px; border-radius: 2px; background: #3B82F6; animation: waveform 1.2s ease-in-out infinite; }
-    @keyframes waveform { 0%, 100% { height: 4px; opacity: 0.4; } 50% { height: 16px; opacity: 1; } }
-    .drag-over { border-color: #3B82F6 !important; background: rgba(59,130,246,0.05) !important; }
-    .sync-btn-pulse { animation: pulse-ring 1.5s ease-out infinite; }
-    @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(59,130,246,0.5); } 70% { box-shadow: 0 0 0 10px rgba(59,130,246,0); } 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); } }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.3); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.5); }
-    .tooltip { position: relative; }
-    .tooltip:hover::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); white-space: nowrap; background: #020617; color: #F1F5F9; font-size: 12px; padding: 4px 8px; border-radius: 6px; pointer-events: none; z-index: 100; font-family: 'DM Sans', sans-serif; }
-    .word-chip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px; font-size: 13px; cursor: pointer; transition: all 0.15s; margin: 2px; border: 1px solid transparent; }
-    .word-chip:hover { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.3); }
-    .word-chip.stamped { background: rgba(59,130,246,0.15); border-color: #3B82F6; color: #3B82F6; }
-    .word-chip .chip-time { font-family: 'JetBrains Mono', monospace; font-size: 10px; opacity: 0.8; }
-    .lang-switch { display: flex; gap: 2px; background: rgba(148,163,184,0.15); border-radius: 8px; padding: 2px; }
-    .lang-btn { padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; background: transparent; color: inherit; }
-    .lang-btn.active { background: #3B82F6; color: white; }
-  </style>
+    <style>
+        /* ─── Reset & Base ─── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+            touch-action: pan-y;
+            /* prevent horizontal swivel */;
+        }
+
+        /* ─── Disable horizontal scroll / swivel ─── */
+        .no-swivel {
+            overflow-x: hidden !important;
+            width: 100% !important;
+            max-width: 100vw !important;
+        }
+        .no-swivel * {
+            max-width: 100%;
+        }
+
+        /* ─── Scrollbar ─── */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.25);
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.5);
+        }
+
+        /* ─── Light / Dark ─── */
+        body.light {
+            background: #F1F5F9;
+            color: #020617;
+        }
+        body.light .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-color: rgba(226, 232, 240, 0.6);
+        }
+        body.light .card-solid {
+            background: #FFFFFF;
+            border-color: #E2E8F0;
+        }
+        body.light .txt-secondary {
+            color: #475569;
+        }
+        body.light input,
+        body.light textarea,
+        body.light select {
+            background: #F8FAFC;
+            border-color: #E2E8F0;
+            color: #020617;
+        }
+        body.light .preview-pane {
+            background: #F1F5F9;
+            border-color: #E2E8F0;
+        }
+        body.light .seek-track {
+            background: #E2E8F0;
+        }
+        body.light .kbd {
+            background: #E2E8F0;
+            color: #475569;
+            border-color: #CBD5E1;
+        }
+        body.light .hdr {
+            background: rgba(241, 245, 249, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-color: rgba(226, 232, 240, 0.6);
+        }
+        body.light .glass-bg {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        body.light .toast {
+            background: #0F172A;
+            color: #F1F5F9;
+        }
+        body.light .lang-switch {
+            background: rgba(0, 0, 0, 0.06);
+        }
+        body.light .lang-btn.active {
+            background: #3B82F6;
+            color: #fff;
+        }
+        body.light .lang-btn {
+            color: #475569;
+        }
+        body.light .modal-content {
+            background: #FFFFFF;
+            border-color: #E2E8F0;
+        }
+        body.light .border-subtle {
+            border-color: rgba(226, 232, 240, 0.5);
+        }
+        body.light .cookie-banner {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-color: #E2E8F0;
+        }
+        body.light .cookie-banner .cookie-text {
+            color: #1E293B;
+        }
+
+        body.dark,
+        body:not(.light) {
+            background: #020617;
+            color: #F1F5F9;
+        }
+        body.dark .card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-color: rgba(30, 41, 59, 0.6);
+        }
+        body.dark .card-solid {
+            background: #0F172A;
+            border-color: #1E293B;
+        }
+        body.dark .txt-secondary {
+            color: #94A3B8;
+        }
+        body.dark input,
+        body.dark textarea,
+        body.dark select {
+            background: #020617;
+            border-color: #1E293B;
+            color: #F1F5F9;
+        }
+        body.dark .preview-pane {
+            background: #020617;
+            border-color: #1E293B;
+        }
+        body.dark .seek-track {
+            background: #1E293B;
+        }
+        body.dark .kbd {
+            background: #1E293B;
+            color: #94A3B8;
+            border-color: #334155;
+        }
+        body.dark .hdr {
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-color: rgba(30, 41, 59, 0.6);
+        }
+        body.dark .glass-bg {
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        body.dark .toast {
+            background: #0F172A;
+            color: #F1F5F9;
+        }
+        body.dark .lang-switch {
+            background: rgba(255, 255, 255, 0.06);
+        }
+        body.dark .lang-btn.active {
+            background: #3B82F6;
+            color: #fff;
+        }
+        body.dark .lang-btn {
+            color: #94A3B8;
+        }
+        body.dark .modal-content {
+            background: #0F172A;
+            border-color: #1E293B;
+        }
+        body.dark .border-subtle {
+            border-color: rgba(30, 41, 59, 0.5);
+        }
+        body.dark .cookie-banner {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(12px);
+            border-color: #1E293B;
+        }
+        body.dark .cookie-banner .cookie-text {
+            color: #E2E8F0;
+        }
+
+        /* ─── Cards ─── */
+        .card {
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 16px;
+            transition: background 0.4s ease, border-color 0.4s ease, transform 0.25s ease, box-shadow 0.4s ease;
+        }
+        .card:hover {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+        }
+        body.dark .card:hover {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-solid {
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 16px;
+            transition: background 0.4s ease, border-color 0.4s ease;
+        }
+
+        /* ─── Buttons ─── */
+        .btn-accent {
+            background: #3B82F6;
+            color: #fff;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-accent:hover {
+            background: #2563EB;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 28px rgba(59, 130, 246, 0.35);
+        }
+        .btn-accent:active {
+            transform: translateY(0) scale(0.98);
+        }
+        .btn-accent::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent 60%);
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        .btn-ghost {
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .btn-ghost:hover {
+            background: rgba(59, 130, 246, 0.10);
+            transform: translateY(-1px);
+        }
+        .btn-ghost:active {
+            transform: scale(0.96);
+        }
+
+        /* ─── Inputs ─── */
+        input,
+        textarea,
+        select {
+            transition: all 0.2s ease;
+            outline: none;
+            border-radius: 10px;
+        }
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #3B82F6 !important;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+        }
+
+        /* ─── Seek Bar ─── */
+        .seek-bar {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            border-radius: 4px;
+            cursor: pointer;
+            background: transparent;
+            position: relative;
+            z-index: 2;
+        }
+        .seek-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3B82F6;
+            cursor: pointer;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2), 0 2px 8px rgba(59, 130, 246, 0.3);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .seek-bar::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.25), 0 4px 16px rgba(59, 130, 246, 0.4);
+        }
+        .seek-bar::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3B82F6;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+        .seek-track {
+            position: relative;
+            height: 4px;
+            border-radius: 4px;
+            overflow: visible;
+            background: rgba(148, 163, 184, 0.2);
+        }
+        .seek-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #3B82F6, #60A5FA);
+            border-radius: 4px;
+            pointer-events: none;
+            transition: width 0.08s linear;
+            z-index: 1;
+        }
+
+        /* ─── Volume ─── */
+        .volume-bar {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 3px;
+            border-radius: 4px;
+            cursor: pointer;
+            background: rgba(148, 163, 184, 0.25);
+            transition: background 0.2s;
+        }
+        .volume-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #3B82F6;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+        .volume-bar::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        .volume-bar::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #3B82F6;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* ─── Lyric Lines ─── */
+        .lyric-line {
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 3px solid transparent;
+        }
+        .lyric-line:hover {
+            background: rgba(59, 130, 246, 0.06);
+            transform: translateX(4px);
+        }
+        .lyric-line.active {
+            background: rgba(59, 130, 246, 0.12);
+            color: #3B82F6;
+            font-weight: 600;
+            border-left-color: #3B82F6;
+            transform: translateX(4px);
+        }
+        .lyric-line.has-timestamp {
+            border-left-color: #3B82F6;
+        }
+        .lyric-line.no-timestamp {
+            opacity: 0.55;
+            border-left-color: transparent;
+        }
+
+        .timestamp-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            background: rgba(59, 130, 246, 0.12);
+            color: #3B82F6;
+            border-radius: 6px;
+            padding: 2px 8px;
+            flex-shrink: 0;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            transition: all 0.2s;
+        }
+        .lyric-line.active .timestamp-badge {
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        /* ─── Preview ─── */
+        .preview-pane {
+            border-radius: 12px;
+            padding: 16px;
+            border-width: 1px;
+            border-style: solid;
+            transition: background 0.4s, border-color 0.4s;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-all;
+            overflow-y: auto;
+            min-height: 120px;
+            max-height: 220px;
+        }
+        .preview-line {
+            padding: 2px 0;
+            transition: color 0.15s ease, font-weight 0.15s ease;
+        }
+        .preview-line.active-preview {
+            color: #3B82F6;
+            font-weight: 600;
+        }
+
+        /* ─── Toast ─── */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            padding: 14px 22px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-family: 'DM Sans', sans-serif;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
+            animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 360px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .toast.success {
+            border-left: 3px solid #22C55E;
+        }
+        .toast.error {
+            border-left: 3px solid #EF4444;
+        }
+        .toast.info {
+            border-left: 3px solid #3B82F6;
+        }
+        .toast.hiding {
+            opacity: 0;
+            transform: translateY(16px) scale(0.96);
+        }
+
+        /* ─── Modals ─── */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 9000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.25s ease;
+        }
+        .modal {
+            max-width: 520px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 20px;
+            padding: 28px;
+            animation: scaleIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+        }
+        body.dark .modal {
+            background: #0F172A;
+            border-color: #1E293B;
+        }
+        body.light .modal {
+            background: #FFFFFF;
+            border-color: #E2E8F0;
+        }
+
+        /* ─── Header ─── */
+        .hdr {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            transition: background 0.4s ease, border-color 0.4s ease;
+        }
+
+        /* ─── Lang Switch ─── */
+        .lang-switch {
+            display: flex;
+            gap: 2px;
+            border-radius: 10px;
+            padding: 3px;
+            transition: background 0.3s;
+        }
+        .lang-btn {
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: transparent;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .lang-btn:hover {
+            transform: translateY(-1px);
+        }
+        .lang-btn.active {
+            background: #3B82F6;
+            color: #fff;
+            box-shadow: 0 2px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        /* ─── Tooltip ─── */
+        .tooltip {
+            position: relative;
+        }
+        .tooltip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            white-space: nowrap;
+            background: #020617;
+            color: #F1F5F9;
+            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: 8px;
+            pointer-events: none;
+            z-index: 100;
+            font-family: 'DM Sans', sans-serif;
+            opacity: 0;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+        body.light .tooltip::after {
+            background: #0F172A;
+        }
+        .tooltip:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+
+        /* ─── Word Chips ─── */
+        .word-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin: 3px 2px;
+            border: 1px solid transparent;
+            background: rgba(148, 163, 184, 0.06);
+        }
+        .word-chip:hover {
+            background: rgba(59, 130, 246, 0.10);
+            border-color: rgba(59, 130, 246, 0.25);
+            transform: translateY(-2px) scale(1.02);
+        }
+        .word-chip.stamped {
+            background: rgba(59, 130, 246, 0.14);
+            border-color: #3B82F6;
+            color: #3B82F6;
+        }
+        .word-chip .chip-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            opacity: 0.7;
+        }
+
+        /* ─── Progress ─── */
+        .progress-bar {
+            height: 3px;
+            background: linear-gradient(90deg, #3B82F6, #60A5FA);
+            transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 4px;
+        }
+
+        /* ─── KBD ─── */
+        .kbd {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            border-width: 1px;
+            border-style: solid;
+            display: inline-block;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        /* ─── Drop Zone ─── */
+        .drop-zone {
+            border: 2px dashed rgba(59, 130, 246, 0.25);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .drop-zone:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            background: rgba(59, 130, 246, 0.03);
+            transform: translateY(-2px);
+        }
+        .drop-zone.drag-over {
+            border-color: #3B82F6 !important;
+            background: rgba(59, 130, 246, 0.06) !important;
+            transform: scale(1.01);
+        }
+        .drop-zone .drop-icon {
+            font-size: 32px;
+            opacity: 0.5;
+            transition: all 0.3s;
+        }
+        .drop-zone:hover .drop-icon {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        /* ─── Cookie Banner ─── */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 9998;
+            padding: 16px 24px;
+            border-top-width: 1px;
+            border-top-style: solid;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+        }
+        .cookie-banner.hidden {
+            transform: translateY(100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .cookie-banner .cookie-text {
+            font-size: 13px;
+            flex: 1;
+            min-width: 200px;
+        }
+        .cookie-banner .cookie-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .cookie-banner .cookie-actions button {
+            padding: 6px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .cookie-banner .cookie-actions .cookie-accept {
+            background: #3B82F6;
+            color: #fff;
+        }
+        .cookie-banner .cookie-actions .cookie-accept:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+        }
+        .cookie-banner .cookie-actions .cookie-decline {
+            background: transparent;
+            color: #94A3B8;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        .cookie-banner .cookie-actions .cookie-decline:hover {
+            background: rgba(148, 163, 184, 0.08);
+        }
+
+        /* ─── Animations ─── */
+        @keyframes slideIn {
+            from {
+                transform: translateY(16px) scale(0.96);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.92);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes bounceIn {
+            from {
+                transform: scale(0.85);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 8px rgba(59, 130, 246, 0.15);
+            }
+            to {
+                box-shadow: 0 0 28px rgba(59, 130, 246, 0.35);
+            }
+        }
+        @keyframes pulse-ring {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 14px rgba(59, 130, 246, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .animate-glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        .sync-btn-pulse {
+            animation: pulse-ring 1.8s ease-out infinite;
+        }
+
+        /* ─── Responsive tweaks ─── */
+        @media (max-width: 640px) {
+            .modal {
+                padding: 20px;
+                margin: 12px;
+                max-height: 90vh;
+            }
+            .hdr {
+                padding: 10px 12px;
+            }
+            .card {
+                padding: 16px !important;
+            }
+            .preview-pane {
+                font-size: 12px;
+                min-height: 80px;
+                max-height: 160px;
+                padding: 12px;
+            }
+            .lyric-line {
+                padding: 6px 10px;
+                font-size: 14px;
+            }
+            .timestamp-badge {
+                font-size: 10px;
+                padding: 1px 6px;
+            }
+            .cookie-banner {
+                padding: 14px 16px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .cookie-banner .cookie-actions {
+                justify-content: stretch;
+            }
+            .cookie-banner .cookie-actions button {
+                flex: 1;
+                text-align: center;
+            }
+        }
+        @media (max-width: 480px) {
+            .modal {
+                padding: 16px;
+            }
+            .btn-accent {
+                font-size: 13px;
+                padding: 10px 14px;
+            }
+            .word-chip {
+                font-size: 12px;
+                padding: 3px 10px;
+            }
+        }
+
+        /* ─── Utility ─── */
+        .shimmer-bg {
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.04), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        .no-select {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .truncate-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .touch-pan-y {
+            touch-action: pan-y;
+        }
+    </style>
 </head>
-<body class="dark min-h-screen transition-colors duration-300">
+<body class="dark min-h-screen transition-colors duration-300 no-swivel touch-pan-y">
 
-<!-- ============== TOAST CONTAINER ============== -->
-<div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2"></div>
-
-<!-- ============== MODALS ============== -->
-<div id="shortcutsModal" class="modal-backdrop hidden" onclick="if(event.target===this)closeModal('shortcutsModal')">
-  <div class="modal p-6 animate-bounce-in">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="font-syne font-bold text-lg" data-i18n="shortcutsTitle">Keyboard Shortcuts</h3>
-      <button onclick="closeModal('shortcutsModal')" class="btn-ghost p-2 rounded-lg text-xl leading-none">×</button>
-    </div>
-    <div class="grid gap-2 text-sm" id="shortcutsList"></div>
-  </div>
-</div>
-
-<div id="findReplaceModal" class="modal-backdrop hidden" onclick="if(event.target===this)closeModal('findReplaceModal')">
-  <div class="modal p-6 animate-bounce-in">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="font-syne font-bold text-lg" data-i18n="findReplaceTitle">Find & Replace</h3>
-      <button onclick="closeModal('findReplaceModal')" class="btn-ghost p-2 rounded-lg text-xl leading-none">×</button>
-    </div>
-    <div class="grid gap-3">
-      <div><label class="block text-xs txt-secondary mb-1 font-medium uppercase tracking-wide" data-i18n="findLabel">Find</label><input id="findInput" type="text" class="card w-full px-3 py-2 text-sm rounded-lg border" /></div>
-      <div><label class="block text-xs txt-secondary mb-1 font-medium uppercase tracking-wide" data-i18n="replaceLabel">Replace with</label><input id="replaceInput" type="text" class="card w-full px-3 py-2 text-sm rounded-lg border" /></div>
-      <div class="flex gap-2 pt-1">
-        <button onclick="findNext()" class="btn-ghost px-4 py-2 rounded-lg text-sm border card flex-1" data-i18n="findNextBtn">Find Next</button>
-        <button onclick="replaceAll()" class="btn-accent px-4 py-2 rounded-lg text-sm font-medium flex-1" data-i18n="replaceAllBtn">Replace All</button>
-      </div>
-      <p id="findResult" class="text-xs txt-secondary text-center h-4"></p>
-    </div>
-  </div>
-</div>
-
-<div id="tutorialModal" class="modal-backdrop" onclick="if(event.target===this)closeModal('tutorialModal')">
-  <div class="modal p-6 animate-bounce-in">
-    <div class="text-center mb-4">
-      <img src="https://i.postimg.cc/Kvg50f5n/IMG-20250812-164118-putih.png" alt="HajirSync" class="logo-img h-10 mx-auto mb-3" />
-      <h3 class="font-syne font-bold text-xl" data-i18n="welcomeTitle">Welcome to HajirSync</h3>
-      <p class="txt-secondary text-sm mt-1" data-i18n="tagline">Sync Your Lyrics, Feel the Flow</p>
-    </div>
-    <div class="grid gap-3 text-sm" id="tutorialSteps"></div>
-    <button onclick="closeModal('tutorialModal')" class="btn-accent w-full py-3 rounded-xl font-semibold mt-4" data-i18n="getStarted">Let's Get Started →</button>
-  </div>
-</div>
-
-<!-- ============== HEADER ============== -->
-<header class="hdr px-4 py-3">
-  <div class="max-w-7xl mx-auto flex items-center gap-3">
-    <button onclick="resetProject()" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity shrink-0">
-      <img src="https://i.postimg.cc/Kvg50f5n/IMG-20250812-164118-putih.png" alt="HajirSync" class="logo-img h-10 w-auto object-contain" />
-      <div class="hidden sm:block text-left">
-        <div class="font-syne font-bold text-base leading-tight">HajirSync</div>
-        <div class="txt-secondary text-xs leading-tight" data-i18n="tagline">Sync Your Lyrics, Feel the Flow</div>
-      </div>
+    <<!-- ============== COOKIE BANNER ============== -->
+<div id="cookieBanner" class="cookie-banner hidden fixed bottom-6 left-6 right-6 md:left-auto md:max-w-md z-50 p-5 bg-white/90 dark:bg-dark-bg/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 rounded-2xl shadow-xl shadow-slate-900/5 flex flex-col gap-4 animate-[fadeIn_0.4s_both]">
+  
+  <span class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+    🍪 We use cookies to remember your preferences (theme, language, and tutorial status). No tracking, no ads, purely local. Learn more in our 
+    <a href="https://hajirmuhaajir.github.io/raia-footer/#cookies" rel="noopener noreferrer" class="text-slate-900 dark:text-white underline underline-offset-4 decoration-slate-300 dark:decoration-slate-700 hover:decoration-blue-500 transition-colors">Cookie Policy</a>.
+  </span>
+  
+  <div class="flex items-center justify-end gap-3 flex-shrink-0">
+    <button class="cookie-decline px-4 py-2 rounded-full font-mono text-[10px] font-medium text-slate-400 hover:text-slate-900 dark:text-slate-500 dark:hover:text-slate-200 transition-colors cursor-pointer" onclick="declineCookies()">
+      Decline
     </button>
-
-    <div class="flex-1 hidden md:flex items-center gap-2 px-4">
-      <div class="flex-1 bg-border-dark rounded-full h-1.5 overflow-hidden" style="background:rgba(30,41,59,0.5)">
-        <div id="syncProgress" class="progress-bar h-full" style="width:0%"></div>
-      </div>
-      <span id="syncPct" class="text-xs txt-secondary font-mono whitespace-nowrap">0%</span>
-    </div>
-
-    <div class="flex items-center gap-1.5 ml-auto">
-      <!-- ============== Language Switcher ============== -->
-      <div class="lang-switch mr-1">
-        <button onclick="switchLang('id')" id="langId" class="lang-btn active">ID</button>
-        <button onclick="switchLang('en')" id="langEn" class="lang-btn">EN</button>
-      </div>
-
-      <button onclick="newProject()" class="btn-ghost px-3 py-2 rounded-lg text-sm font-medium hidden sm:flex items-center gap-1.5 tooltip" data-i18n-tip="newTip">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-        <span class="hidden lg:inline" data-i18n="newBtn">New</span>
-      </button>
-      <button onclick="importLRC()" class="btn-ghost px-3 py-2 rounded-lg text-sm font-medium hidden sm:flex items-center gap-1.5 tooltip" data-i18n-tip="importTip">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-        <span class="hidden lg:inline" data-i18n="importBtn">Import</span>
-      </button>
-      <button onclick="exportLRC()" class="btn-accent px-3 py-2 rounded-lg text-sm font-semibold flex items-center gap-1.5">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-        <span data-i18n="exportBtn">Export</span>
-      </button>
-      <button onclick="openModal('shortcutsModal')" class="btn-ghost p-2 rounded-lg tooltip" data-i18n-tip="shortcutsTip">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path stroke-linecap="round" d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h12"/></svg>
-      </button>
-      <button onclick="toggleTheme()" id="themeBtn" class="btn-ghost p-2 rounded-lg tooltip" data-i18n-tip="themeTip">
-        <svg id="sunIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-        <svg id="moonIcon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-      </button>
-    </div>
+    <button class="cookie-accept px-4 py-2 rounded-full font-mono text-[10px] font-bold bg-slate-900 dark:bg-white text-white dark:text-dark-bg hover:opacity-90 transition-opacity shadow-sm cursor-pointer" onclick="acceptCookies()">
+      Accept
+    </button>
   </div>
-</header>
 
-<!-- ============== MAIN ============== -->
-<main class="max-w-7xl mx-auto px-4 py-5 grid gap-4">
+</div>
 
-  <div class="grid lg:grid-cols-2 gap-4">
-    <div class="card p-5">
-      <h2 class="font-syne font-bold text-sm uppercase tracking-widest txt-secondary mb-4 flex items-center gap-2">
-        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-        <span data-i18n="metadataTitle">Song Metadata</span>
-      </h2>
-      <div class="grid sm:grid-cols-2 gap-3">
-        <div><label class="block text-xs txt-secondary mb-1 font-medium"><span data-i18n="titleLabel">Title</span> <span class="text-accent">ti:</span></label><input id="metaTitle" type="text" class="card w-full px-3 py-2 text-sm rounded-lg border" oninput="updatePreview()" /></div>
-        <div><label class="block text-xs txt-secondary mb-1 font-medium"><span data-i18n="artistLabel">Artist</span> <span class="text-accent">ar:</span></label><input id="metaArtist" type="text" class="card w-full px-3 py-2 text-sm rounded-lg border" oninput="updatePreview()" /></div>
-        <div><label class="block text-xs txt-secondary mb-1 font-medium"><span data-i18n="albumLabel">Album</span> <span class="text-accent">al:</span></label><input id="metaAlbum" type="text" class="card w-full px-3 py-2 text-sm rounded-lg border" oninput="updatePreview()" /></div>
-        <div><label class="block text-xs txt-secondary mb-1 font-medium"><span data-i18n="authorLabel">Author</span> <span class="text-accent">au:</span></label><input id="metaAuthor" type="text" class="card w-full px-3 py-2 text-sm rounded-lg border" oninput="updatePreview()" /></div>
-        <div class="sm:col-span-2"><label class="block text-xs txt-secondary mb-1 font-medium"><span data-i18n="byLabel">Your Name</span> <span class="text-accent">by:</span></label><input id="metaBy" type="text" class="card w-full px-3 py-2 text-sm rounded-lg border" oninput="updatePreview()" /></div>
-      </div>
-    </div>
 
-    <div class="card p-5 flex flex-col gap-4">
-      <h2 class="font-syne font-bold text-sm uppercase tracking-widest txt-secondary flex items-center gap-2">
-        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
-        <span data-i18n="playerTitle">Audio Player</span>
-      </h2>
-      <div id="audioDropZone" class="border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition-all" style="border-color:rgba(59,130,246,0.3)" onclick="document.getElementById('audioFileInput').click()" ondragover="handleDragOver(event,'audioDropZone')" ondragleave="handleDragLeave('audioDropZone')" ondrop="handleAudioDrop(event)">
-        <div id="audioDropContent">
-          <div class="flex justify-center gap-1 mb-2"><div class="waveform-bar" style="animation-delay:0s"></div><div class="waveform-bar" style="animation-delay:0.15s"></div><div class="waveform-bar" style="animation-delay:0.3s"></div><div class="waveform-bar" style="animation-delay:0.45s"></div><div class="waveform-bar" style="animation-delay:0.6s"></div></div>
-          <p class="text-sm txt-secondary" data-i18n="dropAudio">Drop audio file or <span class="text-accent font-medium">click to browse</span></p>
-          <p class="text-xs txt-secondary mt-1">MP3, WAV, OGG, M4A</p>
+    <!-- ============== TOAST CONTAINER ============== -->
+    <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2"></div>
+
+    <!-- ============== MODALS ============== -->
+    <div id="shortcutsModal" class="modal-backdrop hidden" onclick="if(event.target===this)closeModal('shortcutsModal')">
+        <div class="modal modal-content animate-bounce-in">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="font-syne font-bold text-xl" data-i18n="shortcutsTitle">Keyboard Shortcuts</h3>
+                <button onclick="closeModal('shortcutsModal')" class="btn-ghost p-2 rounded-xl text-2xl leading-none w-10 h-10 flex items-center justify-center">×</button>
+            </div>
+            <div class="grid gap-2 text-sm" id="shortcutsList"></div>
         </div>
-        <div id="audioFileName" class="hidden text-sm font-medium text-accent"></div>
-      </div>
-      <input type="file" id="audioFileInput" accept="audio/*" class="hidden" onchange="loadAudioFile(event)" />
-      <audio id="audioElement" class="hidden"></audio>
+    </div>
 
-      <div class="space-y-3">
-        <div>
-          <div class="seek-track w-full mb-1"><div id="seekFill" class="seek-fill" style="width:0%"></div><input type="range" id="seekBar" class="seek-bar w-full absolute top-0 left-0 h-full opacity-0 cursor-pointer" style="position:relative;height:4px;" min="0" max="100" value="0" oninput="seekAudio(this.value)" /></div>
-          <div class="flex justify-between text-xs font-mono txt-secondary"><span id="currentTime">0:00.00</span><span id="totalTime">0:00.00</span></div>
+    <div id="findReplaceModal" class="modal-backdrop hidden" onclick="if(event.target===this)closeModal('findReplaceModal')">
+        <div class="modal modal-content animate-bounce-in">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="font-syne font-bold text-xl" data-i18n="findReplaceTitle">Find &amp; Replace</h3>
+                <button onclick="closeModal('findReplaceModal')" class="btn-ghost p-2 rounded-xl text-2xl leading-none w-10 h-10 flex items-center justify-center">×</button>
+            </div>
+            <div class="grid gap-4">
+                <div>
+                    <label class="block text-xs txt-secondary mb-1.5 font-medium uppercase tracking-wider" data-i18n="findLabel">Find</label>
+                    <input id="findInput" type="text" class="card-solid w-full px-4 py-2.5 text-sm rounded-xl border" />
+                </div>
+                <div>
+                    <label class="block text-xs txt-secondary mb-1.5 font-medium uppercase tracking-wider" data-i18n="replaceLabel">Replace with</label>
+                    <input id="replaceInput" type="text" class="card-solid w-full px-4 py-2.5 text-sm rounded-xl border" />
+                </div>
+                <div class="flex gap-3 pt-1">
+                    <button onclick="findNext()" class="btn-ghost px-5 py-2.5 rounded-xl text-sm border card-solid flex-1 font-medium" data-i18n="findNextBtn">Find Next</button>
+                    <button onclick="replaceAll()" class="btn-accent px-5 py-2.5 rounded-xl text-sm font-semibold flex-1" data-i18n="replaceAllBtn">Replace All</button>
+                </div>
+                <p id="findResult" class="text-xs txt-secondary text-center h-5"></p>
+            </div>
         </div>
-        <div class="flex items-center justify-between gap-2">
-          <div class="flex items-center gap-2">
-            <button onclick="seekRelative(-5)" class="btn-ghost p-2 rounded-lg tooltip" data-i18n-tip="backTip"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4z"/><path stroke-linecap="round" stroke-linejoin="round" d="M4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"/></svg></button>
-            <button id="playPauseBtn" onclick="togglePlay()" class="btn-accent w-11 h-11 rounded-full flex items-center justify-center shadow-lg"><svg id="playIcon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg id="pauseIcon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button>
-            <button onclick="seekRelative(5)" class="btn-ghost p-2 rounded-lg tooltip" data-i18n-tip="forwardTip"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"/></svg></button>
-          </div>
-          <div class="flex items-center gap-2">
-            <button id="loopBtn" onclick="toggleLoop()" class="btn-ghost p-2 rounded-lg tooltip" data-i18n-tip="loopTip"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 1l4 4-4 4M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 01-4 4H3"/></svg></button>
-            <select id="speedSelect" onchange="changeSpeed()" class="card border text-xs rounded-lg px-2 py-1.5 font-mono"><option value="0.5">0.5×</option><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
-            <div class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 txt-secondary shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg><input type="range" id="volumeBar" class="seek-bar w-16" min="0" max="1" step="0.01" value="1" oninput="changeVolume(this.value)" style="height:3px;opacity:1;" /></div>
-          </div>
+    </div>
+
+    <div id="tutorialModal" class="modal-backdrop" onclick="if(event.target===this)closeModal('tutorialModal')">
+        <div class="modal modal-content animate-bounce-in">
+            <div class="text-center mb-5">
+                <img src="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" alt="HajirSync" class="h-14 mx-auto mb-3 object-contain" />
+                <h3 class="font-syne font-bold text-2xl" data-i18n="welcomeTitle">Welcome to HajirSync</h3>
+                <p class="txt-secondary text-sm mt-1" data-i18n="tagline">Sync Your Lyrics, Feel the Flow</p>
+            </div>
+            <div class="grid gap-3 text-sm" id="tutorialSteps"></div>
+            <button onclick="closeModal('tutorialModal')" class="btn-accent w-full py-3.5 rounded-2xl font-semibold mt-5 text-base" data-i18n="getStarted">Let's Get Started →</button>
         </div>
-      </div>
     </div>
-  </div>
 
-  <div class="grid lg:grid-cols-5 gap-4">
-    <div class="lg:col-span-3 card p-5 flex flex-col gap-3">
-      <div class="flex items-center justify-between flex-wrap gap-2">
-        <h2 class="font-syne font-bold text-sm uppercase tracking-widest txt-secondary flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg><span data-i18n="editorTitle">Lyrics Editor</span></h2>
-        <div class="flex gap-1.5 flex-wrap">
-          <button onclick="loadLyricsFile()" class="btn-ghost px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg><span data-i18n="loadFileBtn">Load File</span></button>
-          <button onclick="toggleCase()" class="btn-ghost px-2.5 py-1.5 rounded-lg text-xs font-medium">abc→ABC</button>
-          <button onclick="splitLines()" class="btn-ghost px-2.5 py-1.5 rounded-lg text-xs font-medium tooltip" data-i18n-tip="splitTip">Split Long</button>
-          <button onclick="openModal('findReplaceModal')" class="btn-ghost px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35"/></svg><span data-i18n="findBtn">Find</span></button>
+    <!-- ============== HEADER ============== -->
+    <header class="hdr px-4 py-3">
+        <div class="max-w-7xl mx-auto flex items-center gap-3">
+            <button onclick="resetProject()" class="flex items-center gap-3 hover:opacity-80 transition-opacity shrink-0 group">
+                <img src="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" alt="HajirSync" class="h-10 w-auto object-contain transition-transform group-hover:scale-105 duration-300" />
+                <div class="hidden sm:block text-left">
+                    <div class="font-syne font-extrabold text-lg leading-tight tracking-tight">HajirSync</div>
+                    <div class="txt-secondary text-xs leading-tight font-medium" data-i18n="tagline">Sync Your Lyrics, Feel the Flow</div>
+                </div>
+            </button>
+
+            <div class="flex-1 hidden md:flex items-center gap-3 px-3">
+                <div class="flex-1 bg-border-dark rounded-full h-1.5 overflow-hidden" style="background:rgba(30,41,59,0.35)">
+                    <div id="syncProgress" class="progress-bar h-full" style="width:0%"></div>
+                </div>
+                <span id="syncPct" class="text-xs txt-secondary font-mono font-medium whitespace-nowrap tabular-nums">0%</span>
+            </div>
+
+            <div class="flex items-center gap-1.5 ml-auto">
+                <!-- Language Switcher -->
+                <div class="lang-switch mr-1">
+                    <button onclick="switchLang('id')" id="langId" class="lang-btn active">ID</button>
+                    <button onclick="switchLang('en')" id="langEn" class="lang-btn">EN</button>
+                </div>
+
+                <button onclick="newProject()" class="btn-ghost px-3.5 py-2 rounded-xl text-sm font-medium hidden sm:flex items-center gap-1.5 tooltip" data-i18n-tip="newTip">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                    <span class="hidden lg:inline" data-i18n="newBtn">New</span>
+                </button>
+                <button onclick="importLRC()" class="btn-ghost px-3.5 py-2 rounded-xl text-sm font-medium hidden sm:flex items-center gap-1.5 tooltip" data-i18n-tip="importTip">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <span class="hidden lg:inline" data-i18n="importBtn">Import</span>
+                </button>
+                <button onclick="exportLRC()" class="btn-accent px-4 py-2 rounded-xl text-sm font-semibold flex items-center gap-1.5 shadow-lg shadow-blue-500/20">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    <span data-i18n="exportBtn">Export</span>
+                </button>
+                <button onclick="openModal('shortcutsModal')" class="btn-ghost p-2.5 rounded-xl tooltip" data-i18n-tip="shortcutsTip">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path stroke-linecap="round" d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h12"/></svg>
+                </button>
+                <button onclick="toggleTheme()" id="themeBtn" class="btn-ghost p-2.5 rounded-xl tooltip" data-i18n-tip="themeTip">
+                    <svg id="sunIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                    <svg id="moonIcon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                </button>
+            </div>
         </div>
-      </div>
-      <input type="file" id="lyricsFileInput" accept=".txt,.lrc" class="hidden" onchange="loadLyricsFileEvent(event)" />
-      <div class="flex gap-1 p-1 rounded-lg bg-opacity-50 w-fit" style="background:rgba(30,41,59,0.4)">
-        <button id="modeLineBtn" onclick="setMode('line')" class="px-3 py-1.5 rounded-md text-xs font-semibold transition-all btn-accent" data-i18n="lineMode">Line Timing</button>
-        <button id="modeWordBtn" onclick="setMode('word')" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all btn-ghost txt-secondary" data-i18n="wordMode">Word-by-Word</button>
-      </div>
-      <textarea id="lyricsTextarea" class="card border flex-1 w-full px-3 py-3 text-sm rounded-xl font-dm resize-none leading-relaxed" style="min-height:200px;max-height:280px" oninput="onLyricsInput()" onkeydown="handleLyricsKeydown(event)"></textarea>
-      <div class="flex items-center justify-between text-xs txt-secondary"><span id="lineCount">0 lines</span><div class="flex gap-2"><button onclick="undoAction()" class="btn-ghost px-2 py-1 rounded text-xs">↩ Undo</button><button onclick="redoAction()" class="btn-ghost px-2 py-1 rounded text-xs">↪ Redo</button></div></div>
-    </div>
+    </header>
 
-    <div class="lg:col-span-2 card p-5 flex flex-col gap-3">
-      <h2 class="font-syne font-bold text-sm uppercase tracking-widest txt-secondary flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg><span data-i18n="syncTitle">Sync Lines</span></h2>
-      <button id="stampBtn" onclick="addTimestamp()" class="btn-accent w-full py-4 rounded-xl font-syne font-bold text-base flex items-center justify-center gap-2 sync-btn-pulse"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg><span data-i18n="stampBtn">Add Timestamp</span><span class="text-xs opacity-70 font-mono">[Space]</span></button>
-      <p class="text-center text-xs txt-secondary" data-i18n="syncHint">Hit play, then stamp each line as it's sung</p>
-      <div id="syncLinesList" class="flex-1 overflow-y-auto rounded-xl space-y-1" style="max-height:260px;min-height:120px"><p class="text-xs txt-secondary text-center py-6" data-i18n="syncPlaceholder">Lyrics will appear here for syncing</p></div>
-      <div class="grid grid-cols-2 gap-2 pt-1 border-t" style="border-color:rgba(30,41,59,0.5)"><div class="grid grid-cols-2 gap-1"><button onclick="adjustAll(-0.1)" class="btn-ghost py-2 rounded-lg text-xs font-mono font-medium">−0.1s</button><button onclick="adjustAll(0.1)" class="btn-ghost py-2 rounded-lg text-xs font-mono font-medium">+0.1s</button></div><button onclick="clearTimestamps()" class="btn-ghost py-2 rounded-lg text-xs font-medium text-red-400 hover:bg-red-400/10" data-i18n="clearAllBtn">Clear All ×</button></div>
-    </div>
-  </div>
+    <!-- ============== MAIN ============== -->
+    <main class="max-w-7xl mx-auto px-4 py-6 grid gap-5 no-swivel">
 
-  <div class="card p-5">
-    <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
-      <h2 class="font-syne font-bold text-sm uppercase tracking-widest txt-secondary flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg><span data-i18n="previewTitle">LRC Preview</span></h2>
-      <div class="flex gap-2 flex-wrap"><button onclick="copyPreview()" class="btn-ghost px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><span data-i18n="copyBtn">Copy</span></button><button onclick="exportLRC()" class="btn-accent px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg><span data-i18n="exportLrcBtn">Export .lrc</span></button><button onclick="exportTXT()" class="btn-ghost px-3 py-1.5 rounded-lg text-xs font-medium">Export .txt</button></div>
-    </div>
-    <div id="lrcPreview" class="preview-pane rounded-xl p-4 overflow-y-auto font-mono text-xs leading-relaxed" style="min-height:120px;max-height:220px;white-space:pre-wrap;word-break:break-all"><span class="txt-secondary italic" data-i18n="previewPlaceholder">LRC output will appear here…</span></div>
-  </div>
+        <!-- Row 1: Metadata + Player -->
+        <div class="grid lg:grid-cols-2 gap-5">
+            <!-- Metadata -->
+            <div class="card p-5 animate-fade-in">
+                <h2 class="font-syne font-bold text-sm uppercase tracking-widest txt-secondary mb-4 flex items-center gap-2.5">
+                    <span class="w-1.5 h-5 rounded-full bg-accent"></span>
+                    <span data-i18n="metadataTitle">Song Metadata</span>
+                </h2>
+                <div class="grid sm:grid-cols-2 gap-3.5">
+                    <div>
+                        <label class="block text-xs txt-secondary mb-1.5 font-medium tracking-wide"><span data-i18n="titleLabel">Title</span> <span class="text-accent font-mono text-[11px]">ti:</span></label>
+                        <input id="metaTitle" type="text" class="card-solid w-full px-4 py-2.5 text-sm rounded-xl border" oninput="updatePreview()" />
+                    </div>
+                    <div>
+                        <label class="block text-xs txt-secondary mb-1.5 font-medium tracking-wide"><span data-i18n="artistLabel">Artist</span> <span class="text-accent font-mono text-[11px]">ar:</span></label>
+                        <input id="metaArtist" type="text" class="card-solid w-full px-4 py-2.5 text-sm rounded-xl border" oninput="updatePreview()" />
+                    </div>
+                    <div>
+                        <label class="block text-xs txt-secondary mb-1.5 font-medium tracking-wide"><span data-i18n="albumLabel">Album</span> <span class="text-accent font-mono text-[11px]">al:</span></label>
+                        <input id="metaAlbum" type="text" class="card-solid w-full px-4 py-2.5 text-sm rounded-xl border" oninput="updatePreview()" />
+                    </div>
+                    <div>
+                        <label class="block text-xs txt-secondary mb-1.5 font-medium tracking-wide"><span data-i18n="authorLabel">Author</span> <span class="text-accent font-mono text-[11px]">au:</span></label>
+                        <input id="metaAuthor" type="text" class="card-solid w-full px-4 py-2.5 text-sm rounded-xl border" oninput="updatePreview()" />
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs txt-secondary mb-1.5 font-medium tracking-wide"><span data-i18n="byLabel">Your Name</span> <span class="text-accent font-mono text-[11px]">by:</span></label>
+                        <input id="metaBy" type="text" class="card-solid w-full px-4 py-2.5 text-sm rounded-xl border" oninput="updatePreview()" />
+                    </div>
+                </div>
+            </div>
 
-  <div id="wordModePanel" class="card p-5 hidden">
-    <div class="flex items-center justify-between mb-3"><h2 class="font-syne font-bold text-sm uppercase tracking-widest txt-secondary flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16"/></svg>Word-by-Word Mode</h2><span class="text-xs txt-secondary" data-i18n="wordHint">Click each word as it's sung</span></div>
-    <div id="wordChipsContainer" class="leading-8"></div>
-  </div>
-</main>
+            <!-- Audio Player -->
+            <div class="card p-5 flex flex-col gap-4 animate-fade-in" style="animation-delay:0.08s">
+                <h2 class="font-syne font-bold text-sm uppercase tracking-widest txt-secondary flex items-center gap-2.5">
+                    <span class="w-1.5 h-5 rounded-full bg-accent"></span>
+                    <span data-i18n="playerTitle">Audio Player</span>
+                </h2>
 
-<footer class="text-center text-xs txt-secondary py-6 mt-4">
-  <span data-i18n="footerText">Made with ❤️ in your browser – 100% offline</span> &nbsp;|&nbsp; <span class="font-syne font-semibold text-accent">HajirSync</span>
-</footer>
+                <!-- Drop Zone -->
+                <div id="audioDropZone" class="drop-zone" onclick="document.getElementById('audioFileInput').click()" ondragover="handleDragOver(event,'audioDropZone')" ondragleave="handleDragLeave('audioDropZone')" ondrop="handleAudioDrop(event)">
+                    <div id="audioDropContent">
+                        <div class="drop-icon mb-2">🎵</div>
+                        <p class="text-sm txt-secondary" data-i18n="dropAudio">Drop audio file or <span class="text-accent font-semibold">click to browse</span></p>
+                        <p class="text-xs txt-secondary mt-1.5 opacity-60">MP3, WAV, OGG, M4A</p>
+                    </div>
+                    <div id="audioFileName" class="hidden text-sm font-semibold text-accent mt-1"></div>
+                </div>
+                <input type="file" id="audioFileInput" accept="audio/*" class="hidden" onchange="loadAudioFile(event)" />
+                <audio id="audioElement" class="hidden"></audio>
 
-<script>
-  (function() {
-    // ============== I18N ==============
-    const i18n = {
-      id: {
-        tagline: 'Sinkronkan Lirikmu, Rasakan Alurnya',
-        newBtn: 'Baru', importBtn: 'Impor', exportBtn: 'Ekspor',
-        newTip: 'Proyek Baru', importTip: 'Impor file .lrc', shortcutsTip: 'Pintasan keyboard', themeTip: 'Ganti tema',
-        metadataTitle: 'Metadata Lagu', titleLabel: 'Judul', artistLabel: 'Artis', albumLabel: 'Album', authorLabel: 'Penulis', byLabel: 'Nama Kamu',
-        playerTitle: 'Pemutar Audio', dropAudio: 'Letakkan file audio atau <span class="text-accent font-medium">klik untuk cari</span>',
-        backTip: 'Mundur 5s', forwardTip: 'Maju 5s', loopTip: 'Ulangi',
-        editorTitle: 'Editor Lirik', loadFileBtn: 'Muat File', splitTip: 'Pisahkan baris panjang', findBtn: 'Cari',
-        lineMode: 'Waktu per Baris', wordMode: 'Per Kata',
-        syncTitle: 'Sinkronisasi', stampBtn: 'Tambahkan Stempel Waktu', syncHint: 'Putar audio, lalu stempel setiap baris saat dinyanyikan',
-        syncPlaceholder: 'Lirik akan muncul di sini untuk disinkronkan', clearAllBtn: 'Hapus Semua ×',
-        previewTitle: 'Pratinjau LRC', copyBtn: 'Salin', exportLrcBtn: 'Ekspor .lrc',
-        previewPlaceholder: 'Output LRC akan muncul di sini…',
-        wordHint: 'Klik setiap kata saat dinyanyikan',
-        footerText: 'Dibuat dengan ❤️ di browser Anda – 100% offline',
-        shortcutsTitle: 'Pintasan Keyboard',
-        findReplaceTitle: 'Cari & Ganti', findLabel: 'Cari', replaceLabel: 'Ganti dengan', findNextBtn: 'Cari Berikutnya', replaceAllBtn: 'Ganti Semua',
-        welcomeTitle: 'Selamat datang di HajirSync', getStarted: 'Ayo Mulai →',
-        tutorialSteps: [
-          { icon:'🎵', title:'1. Muat Audio Kamu', desc:'Seret & lepas atau klik untuk mengunggah file MP3, WAV, OGG, atau M4A.' },
-          { icon:'✍️', title:'2. Tambahkan Lirik', desc:'Ketik, tempel, atau muat file .txt/.lrc. Setiap baris = satu baris lirik.' },
-          { icon:'⏱️', title:'3. Sinkronkan Langsung', desc:'Tekan Putar, lalu tekan <kbd class="kbd">Spasi</kbd> atau tombol biru besar saat setiap baris dimainkan.' },
-          { icon:'💾', title:'4. Ekspor .lrc Kamu', desc:'Unduh file LRC yang sudah disinkronkan — siap untuk pemutar media apa pun.' }
-        ]
-      },
-      en: {
-        tagline: 'Sync Your Lyrics, Feel the Flow',
-        newBtn: 'New', importBtn: 'Import', exportBtn: 'Export',
-        newTip: 'New Project', importTip: 'Import .lrc file', shortcutsTip: 'Keyboard shortcuts', themeTip: 'Toggle theme',
-        metadataTitle: 'Song Metadata', titleLabel: 'Title', artistLabel: 'Artist', albumLabel: 'Album', authorLabel: 'Author', byLabel: 'Your Name',
-        playerTitle: 'Audio Player', dropAudio: 'Drop audio file or <span class="text-accent font-medium">click to browse</span>',
-        backTip: 'Back 5s', forwardTip: 'Forward 5s', loopTip: 'Loop',
-        editorTitle: 'Lyrics Editor', loadFileBtn: 'Load File', splitTip: 'Split long lines', findBtn: 'Find',
-        lineMode: 'Line Timing', wordMode: 'Word-by-Word',
-        syncTitle: 'Sync Lines', stampBtn: 'Add Timestamp', syncHint: 'Hit play, then stamp each line as it\'s sung',
-        syncPlaceholder: 'Lyrics will appear here for syncing', clearAllBtn: 'Clear All ×',
-        previewTitle: 'LRC Preview', copyBtn: 'Copy', exportLrcBtn: 'Export .lrc',
-        previewPlaceholder: 'LRC output will appear here…',
-        wordHint: 'Click each word as it\'s sung',
-        footerText: 'Made with ❤️ in your browser – 100% offline',
-        shortcutsTitle: 'Keyboard Shortcuts',
-        findReplaceTitle: 'Find & Replace', findLabel: 'Find', replaceLabel: 'Replace with', findNextBtn: 'Find Next', replaceAllBtn: 'Replace All',
-        welcomeTitle: 'Welcome to HajirSync', getStarted: 'Let\'s Get Started →',
-        tutorialSteps: [
-          { icon:'🎵', title:'1. Load Your Audio', desc:'Drag & drop or click to upload MP3, WAV, OGG, or M4A files.' },
-          { icon:'✍️', title:'2. Add Your Lyrics', desc:'Type, paste, or load a .txt/.lrc file. Each line = one lyric line.' },
-          { icon:'⏱️', title:'3. Sync in Real-Time', desc:'Hit Play, then press <kbd class="kbd">Space</kbd> or the big blue button as each line plays.' },
-          { icon:'💾', title:'4. Export Your .lrc', desc:'Download the synced LRC file — ready for any media player.' }
-        ]
-      }
-    };
+                <!-- Player Controls -->
+                <div class="space-y-3">
+                    <!-- Seek -->
+                    <div>
+                        <div class="seek-track w-full mb-1">
+                            <div id="seekFill" class="seek-fill" style="width:0%"></div>
+                            <input type="range" id="seekBar" class="seek-bar w-full absolute top-0 left-0 h-full opacity-100 cursor-pointer" style="position:relative;height:4px;" min="0" max="100" value="0" oninput="seekAudio(this.value)" />
+                        </div>
+                        <div class="flex justify-between text-xs font-mono txt-secondary tabular-nums">
+                            <span id="currentTime">0:00.00</span>
+                            <span id="totalTime">0:00.00</span>
+                        </div>
+                    </div>
 
-    let currentLang = localStorage.getItem('hajirLang') || 'id';
-    function switchLang(lang) {
-      currentLang = lang;
-      localStorage.setItem('hajirLang', lang);
-      document.getElementById('langId').classList.toggle('active', lang === 'id');
-      document.getElementById('langEn').classList.toggle('active', lang === 'en');
-      document.documentElement.lang = lang;
-      applyI18n();
-    }
+                    <!-- Controls row -->
+                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="seekRelative(-5)" class="btn-ghost p-2.5 rounded-xl tooltip" data-i18n-tip="backTip">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4z"/><path stroke-linecap="round" stroke-linejoin="round" d="M4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"/></svg>
+                            </button>
+                            <button id="playPauseBtn" onclick="togglePlay()" class="btn-accent w-12 h-12 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/25 transition-transform hover:scale-105 active:scale-95">
+                                <svg id="playIcon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                <svg id="pauseIcon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                            </button>
+                            <button onclick="seekRelative(5)" class="btn-ghost p-2.5 rounded-xl tooltip" data-i18n-tip="forwardTip">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"/></svg>
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <button id="loopBtn" onclick="toggleLoop()" class="btn-ghost p-2.5 rounded-xl tooltip" data-i18n-tip="loopTip">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 1l4 4-4 4M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 01-4 4H3"/></svg>
+                            </button>
+                            <select id="speedSelect" onchange="changeSpeed()" class="card-solid border text-xs rounded-xl px-3 py-1.5 font-mono font-medium bg-transparent">
+                                <option value="0.5">0.5×</option><option value="0.75">0.75×</option><option value="1" selected>1×</option>
+                                <option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+                            </select>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-3.5 h-3.5 txt-secondary shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+                                <input type="range" id="volumeBar" class="volume-bar w-16" min="0" max="1" step="0.01" value="1" oninput="changeVolume(this.value)" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    function applyI18n() {
-      const dict = i18n[currentLang] || i18n.en;
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.dataset.i18n;
-        if (dict[key]) el.innerHTML = dict[key];
-      });
-      document.querySelectorAll('[data-i18n-tip]').forEach(el => {
-        el.setAttribute('data-tip', dict[el.dataset.i18nTip] || '');
-      });
-      // Render dynamic tutorial & shortcuts
-      renderTutorialSteps();
-      renderShortcuts();
-      // Update sync placeholder
-      const syncList = document.getElementById('syncLinesList');
-      if (syncList && syncList.children.length === 1 && syncList.children[0].tagName === 'P') {
-        syncList.children[0].textContent = dict.syncPlaceholder;
-      }
-      document.getElementById('previewPlaceholder') && (document.getElementById('previewPlaceholder').textContent = dict.previewPlaceholder);
-      document.getElementById('lineCount') && (document.getElementById('lineCount').textContent = lyrics.filter(l=>l.trim()).length + ' lines');
-    }
+        <!-- Row 2: Editor + Sync -->
+        <div class="grid lg:grid-cols-5 gap-5">
+            <!-- Lyrics Editor -->
+            <div class="lg:col-span-3 card p-5 flex flex-col gap-3 animate-fade-in" style="animation-delay:0.12s">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                    <h2 class="font-syne font-bold text-sm uppercase tracking-widest txt-secondary flex items-center gap-2.5">
+                        <span class="w-1.5 h-5 rounded-full bg-accent"></span>
+                        <span data-i18n="editorTitle">Lyrics Editor</span>
+                    </h2>
+                    <div class="flex gap-1.5 flex-wrap">
+                        <button onclick="loadLyricsFile()" class="btn-ghost px-3 py-1.5 rounded-xl text-xs font-medium flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                            <span data-i18n="loadFileBtn">Load File</span>
+                        </button>
+                        <button onclick="toggleCase()" class="btn-ghost px-3 py-1.5 rounded-xl text-xs font-medium">abc→ABC</button>
+                        <button onclick="splitLines()" class="btn-ghost px-3 py-1.5 rounded-xl text-xs font-medium tooltip" data-i18n-tip="splitTip">Split Long</button>
+                        <button onclick="openModal('findReplaceModal')" class="btn-ghost px-3 py-1.5 rounded-xl text-xs font-medium flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35"/></svg>
+                            <span data-i18n="findBtn">Find</span>
+                        </button>
+                    </div>
+                </div>
+                <input type="file" id="lyricsFileInput" accept=".txt,.lrc" class="hidden" onchange="loadLyricsFileEvent(event)" />
 
-    function renderTutorialSteps() {
-      const steps = i18n[currentLang]?.tutorialSteps || i18n.en.tutorialSteps;
-      const container = document.getElementById('tutorialSteps');
-      if (!container) return;
-      container.innerHTML = steps.map(s => 
-        `<div class="flex gap-3 items-start p-3 card rounded-xl"><span class="text-xl">${s.icon}</span><div><p class="font-semibold">${s.title}</p><p class="txt-secondary text-xs mt-0.5">${s.desc}</p></div></div>`
-      ).join('');
-    }
+                <!-- Mode toggle -->
+                <div class="flex gap-1 p-1 rounded-xl bg-opacity-40 w-fit" style="background:rgba(30,41,59,0.25)">
+                    <button id="modeLineBtn" onclick="setMode('line')" class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all btn-accent" data-i18n="lineMode">Line Timing</button>
+                    <button id="modeWordBtn" onclick="setMode('word')" class="px-4 py-1.5 rounded-lg text-xs font-medium transition-all btn-ghost txt-secondary" data-i18n="wordMode">Word-by-Word</button>
+                </div>
 
-    function renderShortcuts() {
-      const dict = i18n[currentLang] || i18n.en;
-      const items = [
-        { label: dict.stampBtn || 'Add Timestamp', keys: ['Space'] },
-        { label: 'Play / Pause', keys: ['Ctrl','P'] },
-        { label: 'Undo', keys: ['Ctrl','Z'] },
-        { label: 'Redo', keys: ['Ctrl','Y'] },
-        { label: 'Seek Back 2s', keys: ['←'] },
-        { label: 'Seek Forward 2s', keys: ['→'] },
-        { label: 'Next Line (Sync)', keys: ['Enter'] },
-        { label: dict.findReplaceTitle || 'Find & Replace', keys: ['Ctrl','H'] }
-      ];
-      const container = document.getElementById('shortcutsList');
-      if (!container) return;
-      container.innerHTML = items.map(item => 
-        `<div class="flex justify-between items-center py-2 border-b border-border-dark/30"><span class="txt-secondary">${item.label}</span><span>${item.keys.map(k => `<kbd class="kbd">${k}</kbd>`).join('+')}</span></div>`
-      ).join('');
-    }
+                <textarea id="lyricsTextarea" class="card-solid border flex-1 w-full px-4 py-3.5 text-sm rounded-xl font-dm resize-none leading-relaxed" style="min-height:200px;max-height:280px" oninput="onLyricsInput()" onkeydown="handleLyricsKeydown(event)"></textarea>
 
-    window.switchLang = switchLang;
+                <div class="flex items-center justify-between text-xs txt-secondary">
+                    <span id="lineCount">0 lines</span>
+                    <div class="flex gap-3">
+                        <button onclick="undoAction()" class="btn-ghost px-2.5 py-1 rounded-lg text-xs font-medium">↩ Undo</button>
+                        <button onclick="redoAction()" class="btn-ghost px-2.5 py-1 rounded-lg text-xs font-medium">↪ Redo</button>
+                    </div>
+                </div>
+            </div>
 
-    // ============== STATE ==============
-    let audioEl = document.getElementById('audioElement');
-    let timestamps = [];
-    let lyrics = [];
-    let mode = 'line';
-    let activeLine = -1;
-    let isPlaying = false;
-    let isLooping = false;
-    let rafId = null;
-    let undoStack = [];
-    let redoStack = [];
-    let wordTimestamps = [];
-    let audioLoaded = false;
-    let currentLyricsInput = '';
+            <!-- Sync Lines -->
+            <div class="lg:col-span-2 card p-5 flex flex-col gap-3 animate-fade-in" style="animation-delay:0.18s">
+                <h2 class="font-syne font-bold text-sm uppercase tracking-widest txt-secondary flex items-center gap-2.5">
+                    <span class="w-1.5 h-5 rounded-full bg-accent"></span>
+                    <span data-i18n="syncTitle">Sync Lines</span>
+                </h2>
+                <button id="stampBtn" onclick="addTimestamp()" class="btn-accent w-full py-4 rounded-2xl font-syne font-bold text-base flex items-center justify-center gap-3 sync-btn-pulse transition-all hover:scale-[1.02] active:scale-[0.98]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                    <span data-i18n="stampBtn">Add Timestamp</span>
+                    <span class="text-xs opacity-70 font-mono font-normal">[Space]</span>
+                </button>
+                <p class="text-center text-xs txt-secondary" data-i18n="syncHint">Hit play, then stamp each line as it's sung</p>
+                <div id="syncLinesList" class="flex-1 overflow-y-auto rounded-xl space-y-1.5" style="max-height:260px;min-height:120px">
+                    <p class="text-xs txt-secondary text-center py-6" data-i18n="syncPlaceholder">Lyrics will appear here for syncing</p>
+                </div>
+                <div class="grid grid-cols-2 gap-2 pt-2 border-t border-subtle">
+                    <div class="grid grid-cols-2 gap-1.5">
+                        <button onclick="adjustAll(-0.1)" class="btn-ghost py-2.5 rounded-xl text-xs font-mono font-medium border border-subtle">−0.1s</button>
+                        <button onclick="adjustAll(0.1)" class="btn-ghost py-2.5 rounded-xl text-xs font-mono font-medium border border-subtle">+0.1s</button>
+                    </div>
+                    <button onclick="clearTimestamps()" class="btn-ghost py-2.5 rounded-xl text-xs font-medium text-red-400 hover:bg-red-400/10 border border-transparent hover:border-red-400/20 transition-all" data-i18n="clearAllBtn">Clear All ×</button>
+                </div>
+            </div>
+        </div>
 
-    // ============== INIT ==============
-    document.addEventListener('DOMContentLoaded', () => {
-      switchLang(currentLang);
-      const saved = localStorage.getItem('hajirTheme') || 'dark';
-      applyTheme(saved);
-      updatePreview();
-      if (!localStorage.getItem('hajirTutorialSeen')) {
-        openModal('tutorialModal');
-        localStorage.setItem('hajirTutorialSeen','1');
-      }
-    });
+        <!-- Row 3: LRC Preview -->
+        <div class="card p-5 animate-fade-in" style="animation-delay:0.24s">
+            <div class="flex items-center justify-between flex-wrap gap-3 mb-3.5">
+                <h2 class="font-syne font-bold text-sm uppercase tracking-widest txt-secondary flex items-center gap-2.5">
+                    <span class="w-1.5 h-5 rounded-full bg-accent"></span>
+                    <span data-i18n="previewTitle">LRC Preview</span>
+                </h2>
+                <div class="flex gap-2 flex-wrap">
+                    <button onclick="copyPreview()" class="btn-ghost px-4 py-2 rounded-xl text-xs font-medium flex items-center gap-1.5 border border-subtle">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        <span data-i18n="copyBtn">Copy</span>
+                    </button>
+                    <button onclick="exportLRC()" class="btn-accent px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        <span data-i18n="exportLrcBtn">Export .lrc</span>
+                    </button>
+                    <button onclick="exportTXT()" class="btn-ghost px-4 py-2 rounded-xl text-xs font-medium border border-subtle">Export .txt</button>
+                </div>
+            </div>
+            <div id="lrcPreview" class="preview-pane"><span class="txt-secondary italic" data-i18n="previewPlaceholder">LRC output will appear here…</span></div>
+        </div>
 
-    // ============== THEME ==============
-    function applyTheme(t) {
-      document.body.classList.remove('dark','light');
-      document.body.classList.add(t);
-      document.getElementById('sunIcon').classList.toggle('hidden', t === 'dark');
-      document.getElementById('moonIcon').classList.toggle('hidden', t === 'light');
-      localStorage.setItem('hajirTheme', t);
-    }
-    window.toggleTheme = () => applyTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
+        <!-- Word Mode Panel (hidden by default) -->
+        <div id="wordModePanel" class="card p-5 hidden animate-fade-in">
+            <div class="flex items-center justify-between mb-3.5">
+                <h2 class="font-syne font-bold text-sm uppercase tracking-widest txt-secondary flex items-center gap-2.5">
+                    <span class="w-1.5 h-5 rounded-full bg-accent"></span>
+                    Word-by-Word Mode
+                </h2>
+                <span class="text-xs txt-secondary" data-i18n="wordHint">Click each word as it's sung</span>
+            </div>
+            <div id="wordChipsContainer" class="leading-9"></div>
+        </div>
+    </main>
 
-    // ============== MODALS ==============
-    window.openModal = (id) => document.getElementById(id).classList.remove('hidden');
-    window.closeModal = (id) => document.getElementById(id).classList.add('hidden');
+    <footer class="text-center text-xs txt-secondary py-7 mt-3 border-t border-subtle no-swivel">
+        <span data-i18n="footerText">Made with ❤️ in your browser – 100% offline</span> &nbsp;·&nbsp; <span class="font-syne font-semibold text-accent">HajirSync</span>
+        <span class="block sm:inline mt-1 sm:mt-0 opacity-60"> · v3.0.1</span>
+    </footer>
 
-    // ============== TOAST ==============
-    function showToast(msg, type='info', dur=3000) {
-      const icons = { success:'✓', error:'✕', info:'ℹ' };
-      const t = document.createElement('div');
-      t.className = `toast ${type}`;
-      t.innerHTML = `<span style="font-size:15px">${icons[type]||'ℹ'}</span><span>${msg}</span>`;
-      document.getElementById('toastContainer').appendChild(t);
-      setTimeout(() => { t.style.opacity='0'; setTimeout(() => t.remove(), 300); }, dur);
-    }
+    <script>
+        (function() {
+            'use strict';
 
-    // ============== AUDIO ==============
-    window.loadAudioFile = (e) => { const f = e.target.files[0]; if(f) setAudioFile(f); };
-    function setAudioFile(f) {
-      const url = URL.createObjectURL(f);
-      audioEl.src = url; audioEl.load(); audioLoaded = true;
-      document.getElementById('audioDropContent').classList.add('hidden');
-      const fn = document.getElementById('audioFileName');
-      fn.textContent = '🎵 ' + f.name; fn.classList.remove('hidden');
-      audioEl.onloadedmetadata = () => {
-        document.getElementById('totalTime').textContent = formatTime(audioEl.duration);
-        document.getElementById('seekBar').max = audioEl.duration;
-      };
-      audioEl.ontimeupdate = onTimeUpdate;
-      audioEl.onended = () => { if(!isLooping) setPlayState(false); };
-      showToast('Audio loaded: ' + f.name, 'success');
-    }
-    window.handleDragOver = (e, id) => { e.preventDefault(); document.getElementById(id).classList.add('drag-over'); };
-    window.handleDragLeave = (id) => document.getElementById(id).classList.remove('drag-over');
-    window.handleAudioDrop = (e) => {
-      e.preventDefault(); handleDragLeave('audioDropZone');
-      const f = e.dataTransfer.files[0];
-      if(f && f.type.startsWith('audio/')) setAudioFile(f);
-      else showToast('Please drop an audio file', 'error');
-    };
-    window.togglePlay = () => {
-      if(!audioLoaded) { showToast('Load an audio file first', 'error'); return; }
-      if(audioEl.paused) { audioEl.play(); setPlayState(true); startRAF(); }
-      else { audioEl.pause(); setPlayState(false); stopRAF(); }
-    };
-    function setPlayState(playing) {
-      isPlaying = playing;
-      document.getElementById('playIcon').classList.toggle('hidden', playing);
-      document.getElementById('pauseIcon').classList.toggle('hidden', !playing);
-    }
-    window.seekRelative = (s) => { if(!audioLoaded) return; audioEl.currentTime = Math.max(0, Math.min(audioEl.duration||0, audioEl.currentTime + s)); };
-    window.seekAudio = (v) => { if(!audioLoaded) return; audioEl.currentTime = parseFloat(v); };
-    window.toggleLoop = () => {
-      isLooping = !isLooping; audioEl.loop = isLooping;
-      const btn = document.getElementById('loopBtn');
-      btn.style.color = isLooping ? '#3B82F6' : ''; btn.style.background = isLooping ? 'rgba(59,130,246,0.12)' : '';
-    };
-    window.changeSpeed = () => audioEl.playbackRate = parseFloat(document.getElementById('speedSelect').value);
-    window.changeVolume = (v) => audioEl.volume = parseFloat(v);
-    function onTimeUpdate() {
-      const cur = audioEl.currentTime, dur = audioEl.duration || 0;
-      document.getElementById('currentTime').textContent = formatTime(cur);
-      document.getElementById('seekBar').value = cur;
-      document.getElementById('seekFill').style.width = (dur ? (cur/dur*100) : 0) + '%';
-      highlightActiveLine(cur);
-    }
-    function startRAF() { stopRAF(); function loop(){ onTimeUpdate(); rafId = requestAnimationFrame(loop); } rafId = requestAnimationFrame(loop); }
-    function stopRAF() { if(rafId) { cancelAnimationFrame(rafId); rafId = null; } }
-    function formatTime(s) { if(!isFinite(s)) return '0:00.00'; const m = Math.floor(s/60); const sec = (s%60).toFixed(2).padStart(5,'0'); return `${m}:${sec}`; }
-    function formatLRCTime(s) { if(!isFinite(s) || s==null) return null; const m = Math.floor(s/60); const sec = (s%60).toFixed(2).padStart(5,'0'); return `${String(m).padStart(2,'0')}:${sec}`; }
+            // ============================================================
+            //  COOKIE MANAGEMENT
+            // ============================================================
+            const COOKIE_NAME = 'hajir_consent';
+            const COOKIE_EXPIRY = 365; // days
 
-    // ============== LYRICS EDITOR ==============
-    window.onLyricsInput = () => {
-      const val = document.getElementById('lyricsTextarea').value;
-      pushUndo(currentLyricsInput); currentLyricsInput = val;
-      parseLyrics(); updatePreview();
-    };
-    function parseLyrics() {
-      const raw = document.getElementById('lyricsTextarea').value;
-      lyrics = raw.split('\n');
-      if(timestamps.length !== lyrics.length) { const old = [...timestamps]; timestamps = lyrics.map((_,i)=> old[i] !== undefined ? old[i] : null); }
-      document.getElementById('lineCount').textContent = lyrics.filter(l=>l.trim()).length + ' lines';
-      renderSyncList(); updateProgress();
-    }
-    function renderSyncList() {
-      const container = document.getElementById('syncLinesList');
-      const dict = i18n[currentLang] || i18n.en;
-      if(!lyrics.length || lyrics.every(l=>!l.trim())) {
-        container.innerHTML = `<p class="text-xs txt-secondary text-center py-6">${dict.syncPlaceholder}</p>`; return;
-      }
-      container.innerHTML = '';
-      lyrics.forEach((line, i) => {
-        if(!line.trim()) return;
-        const div = document.createElement('div');
-        div.className = 'lyric-line flex items-center gap-2 ' + (timestamps[i]!=null ? 'has-timestamp' : 'no-timestamp');
-        div.id = 'syncLine_'+i;
-        div.onclick = ()=>{ activeLine=i; highlightSyncLine(i); if(audioLoaded) audioEl.currentTime = timestamps[i] || audioEl.currentTime; };
-        const badge = document.createElement('span');
-        badge.className = 'timestamp-badge shrink-0'; badge.id = 'badge_'+i;
-        badge.textContent = timestamps[i]!=null ? formatLRCTime(timestamps[i]) : '--:--';
-        const text = document.createElement('span'); text.className = 'truncate text-sm'; text.textContent = line;
-        div.appendChild(badge); div.appendChild(text); container.appendChild(div);
-      });
-      if(activeLine>=0) highlightSyncLine(activeLine);
-    }
-    function highlightSyncLine(idx) {
-      document.querySelectorAll('.lyric-line').forEach(el=>el.classList.remove('active'));
-      const el = document.getElementById('syncLine_'+idx);
-      if(el) { el.classList.add('active'); el.scrollIntoView({block:'nearest', behavior:'smooth'}); }
-    }
-    function highlightActiveLine(currentTime) {
-      let found = -1;
-      for(let i=lyrics.length-1; i>=0; i--) { if(timestamps[i]!=null && currentTime >= timestamps[i]) { found=i; break; } }
-      if(found !== activeLine) { activeLine = found; highlightSyncLine(found); highlightPreviewLine(found); }
-    }
-    function highlightPreviewLine(idx) {
-      document.querySelectorAll('.preview-line').forEach(el=>el.classList.remove('active-preview'));
-      const el = document.getElementById('previewLine_'+idx); if(el) el.classList.add('active-preview');
-    }
+            function getCookie(name) {
+                const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+                return match ? match[2] : null;
+            }
 
-    // ============== SYNC ==============
-    window.addTimestamp = () => {
-      if(!audioLoaded) { showToast('Load audio first!', 'error'); return; }
-      let target = -1;
-      for(let i=Math.max(0,activeLine+1); i<lyrics.length; i++) { if(lyrics[i].trim()) { target=i; break; } }
-      if(target===-1) { for(let i=0;i<lyrics.length;i++) { if(lyrics[i].trim() && timestamps[i]==null) { target=i; break; } } }
-      if(target===-1) { showToast('All lines synced!', 'success'); return; }
-      timestamps[target] = audioEl.currentTime; activeLine = target;
-      const badge = document.getElementById('badge_'+target); if(badge) badge.textContent = formatLRCTime(timestamps[target]);
-      const lineEl = document.getElementById('syncLine_'+target); if(lineEl) { lineEl.classList.remove('no-timestamp'); lineEl.classList.add('has-timestamp'); }
-      highlightSyncLine(target); updatePreview(); updateProgress();
-      const btn = document.getElementById('stampBtn'); btn.style.transform='scale(0.95)'; setTimeout(()=>btn.style.transform='',100);
-    };
-    window.adjustAll = (delta) => { timestamps = timestamps.map(t=>t!=null?Math.max(0,t+delta):null); renderSyncList(); updatePreview(); };
-    window.clearTimestamps = () => { if(!confirm('Clear all timestamps?')) return; timestamps = lyrics.map(()=>null); renderSyncList(); updatePreview(); updateProgress(); };
-    function updateProgress() {
-      const total = lyrics.filter(l=>l.trim()).length;
-      const done = lyrics.filter((l,i)=>l.trim() && timestamps[i]!=null).length;
-      const pct = total ? Math.round(done/total*100) : 0;
-      document.getElementById('syncProgress').style.width = pct+'%';
-      document.getElementById('syncPct').textContent = pct+'% synced';
-    }
+            function setCookie(name, value, days) {
+                const expires = new Date(Date.now() + days * 864e5).toUTCString();
+                document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+            }
 
-    // ============== LRC PREVIEW ==============
-    function buildLRC() {
-      const lines = [];
-      const ti = document.getElementById('metaTitle').value.trim();
-      const ar = document.getElementById('metaArtist').value.trim();
-      const al = document.getElementById('metaAlbum').value.trim();
-      const au = document.getElementById('metaAuthor').value.trim();
-      const by = document.getElementById('metaBy').value.trim();
-      if(ti) lines.push(`[ti:${ti}]`); if(ar) lines.push(`[ar:${ar}]`); if(al) lines.push(`[al:${al}]`); if(au) lines.push(`[au:${au}]`); if(by) lines.push(`[by:${by}]`);
-      if(lines.length) lines.push('');
-      lyrics.forEach((line,i)=>{ const ts=timestamps[i]; if(ts!=null) lines.push(`[${formatLRCTime(ts)}]${line}`); else lines.push(line||''); });
-      return lines.join('\n');
-    }
-    window.updatePreview = () => {
-      const lrc = buildLRC(); const preview = document.getElementById('lrcPreview'); preview.innerHTML = '';
-      if(!lrc.trim()) { preview.innerHTML = `<span class="txt-secondary italic">${(i18n[currentLang]||i18n.en).previewPlaceholder}</span>`; return; }
-      lrc.split('\n').forEach((line,i)=>{ const div=document.createElement('div'); div.className='preview-line'; div.id='previewLine_'+i; div.textContent=line; preview.appendChild(div); });
-    };
-    window.copyPreview = () => navigator.clipboard.writeText(buildLRC()).then(()=>showToast('Copied!','success'));
+            function hasConsent() {
+                return getCookie(COOKIE_NAME) === 'accepted';
+            }
 
-    // ============== EXPORT / IMPORT ==============
-    window.exportLRC = () => { const lrc=buildLRC(); if(!lrc.trim()){showToast('Nothing to export','error');return;} const ti=document.getElementById('metaTitle').value.trim()||'lyrics'; const ar=document.getElementById('metaArtist').value.trim()||'artist'; downloadFile(`${ti} - ${ar}.lrc`,lrc); showToast('Exported!','success'); };
-    window.exportTXT = () => { downloadFile('lyrics.txt',lyrics.join('\n')); showToast('TXT exported','success'); };
-    function downloadFile(name,content){ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([content],{type:'text/plain'})); a.download=name; a.click(); }
-    window.importLRC = () => { const input=document.createElement('input'); input.type='file'; input.accept='.lrc,.txt'; input.onchange=e=>{const f=e.target.files[0]; if(f){const r=new FileReader(); r.onload=ev=>parseLRCFile(ev.target.result); r.readAsText(f);}}; input.click(); };
-    function parseLRCFile(content){ /* sama seperti sebelumnya */ }
+            function acceptCookies() {
+                setCookie(COOKIE_NAME, 'accepted', COOKIE_EXPIRY);
+                document.getElementById('cookieBanner').classList.add('hidden');
+                applyStoredPreferences();
+            }
 
-    // ============== UTILS ==============
-    window.toggleCase = () => { /* ... */ };
-    window.splitLines = () => { /* ... */ };
-    window.undoAction = () => { /* ... */ };
-    window.redoAction = () => { /* ... */ };
-    window.findNext = () => { /* ... */ };
-    window.replaceAll = () => { /* ... */ };
-    window.setMode = (m) => { mode=m; /* ... */ };
-    window.newProject = () => { if(confirm('Start new?')) resetProject(); };
-    window.resetProject = () => { /* ... */ };
+            function declineCookies() {
+                setCookie(COOKIE_NAME, 'declined', COOKIE_EXPIRY);
+                document.getElementById('cookieBanner').classList.add('hidden');
+                // Reset to defaults
+                localStorage.removeItem('hajirTheme');
+                localStorage.removeItem('hajirLang');
+                localStorage.removeItem('hajirTutorialSeen');
+                // Apply default theme & lang
+                applyTheme('dark');
+                switchLang('id');
+            }
 
-    // ============== KEYBOARD ==============
-    document.addEventListener('keydown', e => {
-      const tag = document.activeElement.tagName;
-      if(e.ctrlKey && e.key==='z') { e.preventDefault(); undoAction(); return; }
-      if(e.ctrlKey && e.key==='y') { e.preventDefault(); redoAction(); return; }
-      if(e.ctrlKey && e.key==='p') { e.preventDefault(); togglePlay(); return; }
-      if(e.ctrlKey && e.key==='h') { e.preventDefault(); openModal('findReplaceModal'); return; }
-      if(tag==='INPUT'||tag==='SELECT') return;
-      if(e.key===' ' && tag!=='TEXTAREA') { e.preventDefault(); addTimestamp(); return; }
-      if(e.key==='ArrowLeft') { e.preventDefault(); seekRelative(-2); return; }
-      if(e.key==='ArrowRight') { e.preventDefault(); seekRelative(2); return; }
-      if(e.key==='Enter' && tag!=='TEXTAREA') { e.preventDefault(); addTimestamp(); return; }
-    });
-    window.handleLyricsKeydown = (e) => { if(e.ctrlKey&&e.key==='z'){e.preventDefault(); undoAction();} if(e.ctrlKey&&e.key==='y'){e.preventDefault(); redoAction();} };
+            function applyStoredPreferences() {
+                // Only apply if consent is given and stored values exist
+                if (!hasConsent()) return;
+                const theme = localStorage.getItem('hajirTheme') || 'dark';
+                const lang = localStorage.getItem('hajirLang') || 'id';
+                applyTheme(theme);
+                switchLang(lang);
+            }
 
-    // Initial call
-    switchLang(currentLang);
-  })();
-</script>
+            function checkCookieConsent() {
+                const consent = getCookie(COOKIE_NAME);
+                if (consent === 'accepted') {
+                    document.getElementById('cookieBanner').classList.add('hidden');
+                    applyStoredPreferences();
+                } else if (consent === 'declined') {
+                    document.getElementById('cookieBanner').classList.add('hidden');
+                    // Use defaults
+                    applyTheme('dark');
+                    switchLang('id');
+                } else {
+                    // Show banner
+                    document.getElementById('cookieBanner').classList.remove('hidden');
+                    // Use defaults until consent
+                    applyTheme('dark');
+                    switchLang('id');
+                }
+            }
+
+            window.acceptCookies = acceptCookies;
+            window.declineCookies = declineCookies;
+
+            // ============================================================
+            //  DISABLE HORIZONTAL SWIVEL (touch prevention)
+            // ============================================================
+            function preventHorizontalSwipe() {
+                let startX = 0;
+                let startY = 0;
+                let isSwiping = false;
+
+                document.addEventListener('touchstart', function(e) {
+                    const touch = e.touches[0];
+                    startX = touch.clientX;
+                    startY = touch.clientY;
+                    isSwiping = false;
+                }, { passive: true });
+
+                document.addEventListener('touchmove', function(e) {
+                    if (e.touches.length !== 1) return;
+                    const touch = e.touches[0];
+                    const deltaX = touch.clientX - startX;
+                    const deltaY = touch.clientY - startY;
+
+                    // If horizontal movement is significantly greater than vertical,
+                    // and we're not in a scrollable container, prevent it.
+                    if (Math.abs(deltaX) > Math.abs(deltaY) * 1.2 && Math.abs(deltaX) > 15) {
+                        // Check if the target is inside a scrollable container
+                        const target = e.target;
+                        const isScrollable = target.closest && target.closest(
+                            '.overflow-y-auto, .overflow-x-auto, .preview-pane, #syncLinesList, #lyricsTextarea');
+                        if (!isScrollable) {
+                            e.preventDefault();
+                        }
+                    }
+                }, { passive: false });
+            }
+
+            // Also prevent default for horizontal wheel events
+            document.addEventListener('wheel', function(e) {
+                if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 10) {
+                    const target = e.target;
+                    const isScrollable = target.closest && target.closest(
+                        '.overflow-y-auto, .overflow-x-auto, .preview-pane, #syncLinesList, #lyricsTextarea');
+                    if (!isScrollable) {
+                        e.preventDefault();
+                    }
+                }
+            }, { passive: false });
+
+            // ============================================================
+            //  I18N
+            // ============================================================
+            const i18n = {
+                id: {
+                    tagline: 'Sinkronkan Lirikmu, Rasakan Alurnya',
+                    newBtn: 'Baru',
+                    importBtn: 'Impor',
+                    exportBtn: 'Ekspor',
+                    newTip: 'Proyek Baru',
+                    importTip: 'Impor file .lrc',
+                    shortcutsTip: 'Pintasan keyboard',
+                    themeTip: 'Ganti tema',
+                    metadataTitle: 'Metadata Lagu',
+                    titleLabel: 'Judul',
+                    artistLabel: 'Artis',
+                    albumLabel: 'Album',
+                    authorLabel: 'Penulis',
+                    byLabel: 'Nama Kamu',
+                    playerTitle: 'Pemutar Audio',
+                    dropAudio: 'Letakkan file audio atau <span class="text-accent font-semibold">klik untuk cari</span>',
+                    backTip: 'Mundur 5s',
+                    forwardTip: 'Maju 5s',
+                    loopTip: 'Ulangi',
+                    editorTitle: 'Editor Lirik',
+                    loadFileBtn: 'Muat File',
+                    splitTip: 'Pisahkan baris panjang',
+                    findBtn: 'Cari',
+                    lineMode: 'Waktu per Baris',
+                    wordMode: 'Per Kata',
+                    syncTitle: 'Sinkronisasi',
+                    stampBtn: 'Tambahkan Stempel Waktu',
+                    syncHint: 'Putar audio, lalu stempel setiap baris saat dinyanyikan',
+                    syncPlaceholder: 'Lirik akan muncul di sini untuk disinkronkan',
+                    clearAllBtn: 'Hapus Semua ×',
+                    previewTitle: 'Pratinjau LRC',
+                    copyBtn: 'Salin',
+                    exportLrcBtn: 'Ekspor .lrc',
+                    previewPlaceholder: 'Output LRC akan muncul di sini…',
+                    wordHint: 'Klik setiap kata saat dinyanyikan',
+                    footerText: 'Dibuat dengan ❤️ di browser Anda – 100% offline',
+                    shortcutsTitle: 'Pintasan Keyboard',
+                    findReplaceTitle: 'Cari & Ganti',
+                    findLabel: 'Cari',
+                    replaceLabel: 'Ganti dengan',
+                    findNextBtn: 'Cari Berikutnya',
+                    replaceAllBtn: 'Ganti Semua',
+                    welcomeTitle: 'Selamat datang di HajirSync',
+                    getStarted: 'Ayo Mulai →',
+                    tutorialSteps: [
+                        { icon: '🎵', title: '1. Muat Audio Kamu', desc: 'Seret & lepas atau klik untuk mengunggah file MP3, WAV, OGG, atau M4A.' },
+                        { icon: '✍️', title: '2. Tambahkan Lirik', desc: 'Ketik, tempel, atau muat file .txt/.lrc. Setiap baris = satu baris lirik.' },
+                        { icon: '⏱️', title: '3. Sinkronkan Langsung', desc: 'Tekan Putar, lalu tekan <kbd class="kbd">Spasi</kbd> atau tombol biru besar saat setiap baris dimainkan.' },
+                        { icon: '💾', title: '4. Ekspor .lrc Kamu', desc: 'Unduh file LRC yang sudah disinkronkan — siap untuk pemutar media apa pun.' }
+                    ]
+                },
+                en: {
+                    tagline: 'Sync Your Lyrics, Feel the Flow',
+                    newBtn: 'New',
+                    importBtn: 'Import',
+                    exportBtn: 'Export',
+                    newTip: 'New Project',
+                    importTip: 'Import .lrc file',
+                    shortcutsTip: 'Keyboard shortcuts',
+                    themeTip: 'Toggle theme',
+                    metadataTitle: 'Song Metadata',
+                    titleLabel: 'Title',
+                    artistLabel: 'Artist',
+                    albumLabel: 'Album',
+                    authorLabel: 'Author',
+                    byLabel: 'Your Name',
+                    playerTitle: 'Audio Player',
+                    dropAudio: 'Drop audio file or <span class="text-accent font-semibold">click to browse</span>',
+                    backTip: 'Back 5s',
+                    forwardTip: 'Forward 5s',
+                    loopTip: 'Loop',
+                    editorTitle: 'Lyrics Editor',
+                    loadFileBtn: 'Load File',
+                    splitTip: 'Split long lines',
+                    findBtn: 'Find',
+                    lineMode: 'Line Timing',
+                    wordMode: 'Word-by-Word',
+                    syncTitle: 'Sync Lines',
+                    stampBtn: 'Add Timestamp',
+                    syncHint: "Hit play, then stamp each line as it's sung",
+                    syncPlaceholder: 'Lyrics will appear here for syncing',
+                    clearAllBtn: 'Clear All ×',
+                    previewTitle: 'LRC Preview',
+                    copyBtn: 'Copy',
+                    exportLrcBtn: 'Export .lrc',
+                    previewPlaceholder: 'LRC output will appear here…',
+                    wordHint: "Click each word as it's sung",
+                    footerText: 'Made with ❤️ in your browser – 100% offline',
+                    shortcutsTitle: 'Keyboard Shortcuts',
+                    findReplaceTitle: 'Find & Replace',
+                    findLabel: 'Find',
+                    replaceLabel: 'Replace with',
+                    findNextBtn: 'Find Next',
+                    replaceAllBtn: 'Replace All',
+                    welcomeTitle: 'Welcome to HajirSync',
+                    getStarted: "Let's Get Started →",
+                    tutorialSteps: [
+                        { icon: '🎵', title: '1. Load Your Audio', desc: 'Drag & drop or click to upload MP3, WAV, OGG, or M4A files.' },
+                        { icon: '✍️', title: '2. Add Your Lyrics', desc: 'Type, paste, or load a .txt/.lrc file. Each line = one lyric line.' },
+                        { icon: '⏱️', title: '3. Sync in Real-Time', desc: 'Hit Play, then press <kbd class="kbd">Space</kbd> or the big blue button as each line plays.' },
+                        { icon: '💾', title: '4. Export Your .lrc', desc: 'Download the synced LRC file — ready for any media player.' }
+                    ]
+                }
+            };
+
+            let currentLang = localStorage.getItem('hajirLang') || 'id';
+
+            function switchLang(lang) {
+                currentLang = lang;
+                if (hasConsent()) localStorage.setItem('hajirLang', lang);
+                document.getElementById('langId').classList.toggle('active', lang === 'id');
+                document.getElementById('langEn').classList.toggle('active', lang === 'en');
+                document.documentElement.lang = lang;
+                applyI18n();
+            }
+
+            function applyI18n() {
+                const dict = i18n[currentLang] || i18n.en;
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.dataset.i18n;
+                    if (dict[key]) el.innerHTML = dict[key];
+                });
+                document.querySelectorAll('[data-i18n-tip]').forEach(el => {
+                    el.setAttribute('data-tip', dict[el.dataset.i18nTip] || '');
+                });
+                renderTutorialSteps();
+                renderShortcuts();
+                const syncList = document.getElementById('syncLinesList');
+                if (syncList && syncList.children.length === 1 && syncList.children[0].tagName === 'P') {
+                    syncList.children[0].textContent = dict.syncPlaceholder;
+                }
+                const pp = document.querySelector('#lrcPreview .txt-secondary');
+                if (pp && pp.dataset.i18n === 'previewPlaceholder') pp.textContent = dict.previewPlaceholder;
+                document.getElementById('lineCount') && (document.getElementById('lineCount').textContent = lyrics.filter(l => l
+                    .trim()).length + ' lines');
+            }
+
+            function renderTutorialSteps() {
+                const steps = i18n[currentLang]?.tutorialSteps || i18n.en.tutorialSteps;
+                const container = document.getElementById('tutorialSteps');
+                if (!container) return;
+                container.innerHTML = steps.map(s =>
+                    `<div class="flex gap-3.5 items-start p-3.5 card-solid rounded-xl border-subtle"><span class="text-2xl shrink-0">${s.icon}</span><div><p class="font-semibold text-sm">${s.title}</p><p class="txt-secondary text-xs mt-0.5 leading-relaxed">${s.desc}</p></div></div>`
+                ).join('');
+            }
+
+            function renderShortcuts() {
+                const dict = i18n[currentLang] || i18n.en;
+                const items = [
+                    { label: dict.stampBtn || 'Add Timestamp', keys: ['Space'] },
+                    { label: 'Play / Pause', keys: ['Ctrl', 'P'] },
+                    { label: 'Undo', keys: ['Ctrl', 'Z'] },
+                    { label: 'Redo', keys: ['Ctrl', 'Y'] },
+                    { label: 'Seek Back 2s', keys: ['←'] },
+                    { label: 'Seek Forward 2s', keys: ['→'] },
+                    { label: 'Next Line (Sync)', keys: ['Enter'] },
+                    { label: dict.findReplaceTitle || 'Find & Replace', keys: ['Ctrl', 'H'] }
+                ];
+                const container = document.getElementById('shortcutsList');
+                if (!container) return;
+                container.innerHTML = items.map(item =>
+                    `<div class="flex justify-between items-center py-2.5 border-b border-subtle last:border-0"><span class="txt-secondary text-sm">${item.label}</span><span class="flex gap-1">${item.keys.map(k => `<kbd class="kbd">${k}</kbd>`).join('+')}</span></div>`
+                ).join('');
+            }
+
+            window.switchLang = switchLang;
+
+            // ============================================================
+            //  THEME
+            // ============================================================
+            function applyTheme(t) {
+                document.body.classList.remove('dark', 'light');
+                document.body.classList.add(t);
+                document.getElementById('sunIcon').classList.toggle('hidden', t === 'dark');
+                document.getElementById('moonIcon').classList.toggle('hidden', t === 'light');
+                if (hasConsent()) localStorage.setItem('hajirTheme', t);
+            }
+            window.toggleTheme = () => applyTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
+
+            // ============================================================
+            //  MODALS
+            // ============================================================
+            window.openModal = (id) => { const el = document.getElementById(id); if (el) el.classList.remove('hidden'); };
+            window.closeModal = (id) => { const el = document.getElementById(id); if (el) el.classList.add('hidden'); };
+
+            // ============================================================
+            //  TOAST
+            // ============================================================
+            function showToast(msg, type = 'info', dur = 3200) {
+                const icons = { success: '✓', error: '✕', info: 'ℹ' };
+                const t = document.createElement('div');
+                t.className = `toast ${type}`;
+                t.innerHTML = `<span style="font-size:16px;font-weight:600;opacity:0.8">${icons[type]||'ℹ'}</span><span>${msg}</span>`;
+                document.getElementById('toastContainer').appendChild(t);
+                setTimeout(() => { t.classList.add('hiding');
+                    setTimeout(() => t.remove(), 350); }, dur);
+            }
+
+            // ============================================================
+            //  AUDIO
+            // ============================================================
+            let audioEl = document.getElementById('audioElement');
+            let timestamps = [];
+            let lyrics = [];
+            let mode = 'line';
+            let activeLine = -1;
+            let isPlaying = false;
+            let isLooping = false;
+            let rafId = null;
+            let undoStack = [];
+            let redoStack = [];
+            let wordTimestamps = [];
+            let audioLoaded = false;
+            let currentLyricsInput = '';
+
+            window.loadAudioFile = (e) => { const f = e.target.files[0]; if (f) setAudioFile(f); };
+
+            function setAudioFile(f) {
+                const url = URL.createObjectURL(f);
+                audioEl.src = url;
+                audioEl.load();
+                audioLoaded = true;
+                document.getElementById('audioDropContent').classList.add('hidden');
+                const fn = document.getElementById('audioFileName');
+                fn.textContent = '🎵 ' + f.name;
+                fn.classList.remove('hidden');
+                audioEl.onloadedmetadata = () => {
+                    document.getElementById('totalTime').textContent = formatTime(audioEl.duration);
+                    document.getElementById('seekBar').max = audioEl.duration;
+                };
+                audioEl.ontimeupdate = onTimeUpdate;
+                audioEl.onended = () => { if (!isLooping) setPlayState(false); };
+                showToast('Audio loaded: ' + f.name, 'success');
+            }
+
+            window.handleDragOver = (e, id) => { e.preventDefault();
+                document.getElementById(id).classList.add('drag-over'); };
+            window.handleDragLeave = (id) => document.getElementById(id).classList.remove('drag-over');
+            window.handleAudioDrop = (e) => {
+                e.preventDefault();
+                handleDragLeave('audioDropZone');
+                const f = e.dataTransfer.files[0];
+                if (f && f.type.startsWith('audio/')) setAudioFile(f);
+                else showToast('Please drop an audio file', 'error');
+            };
+
+            window.togglePlay = () => {
+                if (!audioLoaded) { showToast('Load an audio file first', 'error'); return; }
+                if (audioEl.paused) { audioEl.play();
+                    setPlayState(true);
+                    startRAF(); } else { audioEl.pause();
+                    setPlayState(false);
+                    stopRAF(); }
+            };
+
+            function setPlayState(playing) {
+                isPlaying = playing;
+                document.getElementById('playIcon').classList.toggle('hidden', playing);
+                document.getElementById('pauseIcon').classList.toggle('hidden', !playing);
+            }
+
+            window.seekRelative = (s) => { if (!audioLoaded) return;
+                audioEl.currentTime = Math.max(0, Math.min(audioEl.duration || 0, audioEl.currentTime + s)); };
+            window.seekAudio = (v) => { if (!audioLoaded) return;
+                audioEl.currentTime = parseFloat(v); };
+            window.toggleLoop = () => {
+                isLooping = !isLooping;
+                audioEl.loop = isLooping;
+                const btn = document.getElementById('loopBtn');
+                btn.style.color = isLooping ? '#3B82F6' : '';
+                btn.style.background = isLooping ? 'rgba(59,130,246,0.10)' : '';
+            };
+            window.changeSpeed = () => audioEl.playbackRate = parseFloat(document.getElementById('speedSelect').value);
+            window.changeVolume = (v) => audioEl.volume = parseFloat(v);
+
+            function onTimeUpdate() {
+                const cur = audioEl.currentTime,
+                    dur = audioEl.duration || 0;
+                document.getElementById('currentTime').textContent = formatTime(cur);
+                document.getElementById('seekBar').value = cur;
+                document.getElementById('seekFill').style.width = (dur ? (cur / dur * 100) : 0) + '%';
+                highlightActiveLine(cur);
+            }
+
+            function startRAF() { stopRAF(); const loop = () => { onTimeUpdate();
+                    rafId = requestAnimationFrame(loop); };
+                rafId = requestAnimationFrame(loop); }
+
+            function stopRAF() { if (rafId) { cancelAnimationFrame(rafId);
+                    rafId = null; } }
+
+            function formatTime(s) { if (!isFinite(s)) return '0:00.00'; const m = Math.floor(s / 60); const sec = (s % 60)
+                    .toFixed(2)
+                    .padStart(5, '0'); return `${m}:${sec}`; }
+
+            function formatLRCTime(s) { if (!isFinite(s) || s == null) return null; const m = Math.floor(s / 60); const sec = (
+                    s % 60).toFixed(2).padStart(5, '0'); return `${String(m).padStart(2,'0')}:${sec}`; }
+
+            // ============================================================
+            //  LYRICS EDITOR
+            // ============================================================
+            window.onLyricsInput = () => {
+                const val = document.getElementById('lyricsTextarea').value;
+                pushUndo(currentLyricsInput);
+                currentLyricsInput = val;
+                parseLyrics();
+                updatePreview();
+            };
+
+            function parseLyrics() {
+                const raw = document.getElementById('lyricsTextarea').value;
+                lyrics = raw.split('\n');
+                if (timestamps.length !== lyrics.length) { const old = [...timestamps];
+                    timestamps = lyrics.map((_, i) => old[i] !== undefined ? old[i] : null); }
+                document.getElementById('lineCount').textContent = lyrics.filter(l => l.trim()).length + ' lines';
+                renderSyncList();
+                updateProgress();
+            }
+
+            function renderSyncList() {
+                const container = document.getElementById('syncLinesList');
+                const dict = i18n[currentLang] || i18n.en;
+                if (!lyrics.length || lyrics.every(l => !l.trim())) {
+                    container.innerHTML =
+                    `<p class="text-xs txt-secondary text-center py-6">${dict.syncPlaceholder}</p>`;
+                    return;
+                }
+                container.innerHTML = '';
+                lyrics.forEach((line, i) => {
+                    if (!line.trim()) return;
+                    const div = document.createElement('div');
+                    div.className = 'lyric-line ' + (timestamps[i] != null ? 'has-timestamp' : 'no-timestamp');
+                    div.id = 'syncLine_' + i;
+                    div.onclick = () => { activeLine = i;
+                        highlightSyncLine(i); if (audioLoaded) audioEl.currentTime = timestamps[i] || audioEl
+                            .currentTime; };
+                    const badge = document.createElement('span');
+                    badge.className = 'timestamp-badge';
+                    badge.id = 'badge_' + i;
+                    badge.textContent = timestamps[i] != null ? formatLRCTime(timestamps[i]) : '--:--';
+                    const text = document.createElement('span');
+                    text.className = 'truncate text-sm';
+                    text.textContent = line;
+                    div.appendChild(badge);
+                    div.appendChild(text);
+                    container.appendChild(div);
+                });
+                if (activeLine >= 0) highlightSyncLine(activeLine);
+            }
+
+            function highlightSyncLine(idx) {
+                document.querySelectorAll('.lyric-line').forEach(el => el.classList.remove('active'));
+                const el = document.getElementById('syncLine_' + idx);
+                if (el) { el.classList.add('active');
+                    el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+            }
+
+            function highlightActiveLine(currentTime) {
+                let found = -1;
+                for (let i = lyrics.length - 1; i >= 0; i--) { if (timestamps[i] != null && currentTime >= timestamps[i]) { found =
+                            i; break; } }
+                if (found !== activeLine) { activeLine = found;
+                    highlightSyncLine(found);
+                    highlightPreviewLine(found); }
+            }
+
+            function highlightPreviewLine(idx) {
+                document.querySelectorAll('.preview-line').forEach(el => el.classList.remove('active-preview'));
+                const el = document.getElementById('previewLine_' + idx);
+                if (el) el.classList.add('active-preview');
+            }
+
+            // ============================================================
+            //  SYNC
+            // ============================================================
+            window.addTimestamp = () => {
+                if (!audioLoaded) { showToast('Load audio first!', 'error'); return; }
+                let target = -1;
+                for (let i = Math.max(0, activeLine + 1); i < lyrics.length; i++) { if (lyrics[i].trim()) { target = i; break; } }
+                if (target === -1) { for (let i = 0; i < lyrics.length; i++) { if (lyrics[i].trim() && timestamps[i] == null) { target =
+                                i; break; } } }
+                if (target === -1) { showToast('All lines synced!', 'success'); return; }
+                timestamps[target] = audioEl.currentTime;
+                activeLine = target;
+                const badge = document.getElementById('badge_' + target);
+                if (badge) badge.textContent = formatLRCTime(timestamps[target]);
+                const lineEl = document.getElementById('syncLine_' + target);
+                if (lineEl) { lineEl.classList.remove('no-timestamp');
+                    lineEl.classList.add('has-timestamp'); }
+                highlightSyncLine(target);
+                updatePreview();
+                updateProgress();
+                const btn = document.getElementById('stampBtn');
+                btn.style.transform = 'scale(0.94)';
+                setTimeout(() => btn.style.transform = '', 150);
+            };
+
+            window.adjustAll = (delta) => { timestamps = timestamps.map(t => t != null ? Math.max(0, t + delta) : null);
+                renderSyncList();
+                updatePreview(); };
+            window.clearTimestamps = () => { if (!confirm('Clear all timestamps?')) return;
+                timestamps = lyrics.map(() => null);
+                renderSyncList();
+                updatePreview();
+                updateProgress(); };
+
+            function updateProgress() {
+                const total = lyrics.filter(l => l.trim()).length;
+                const done = lyrics.filter((l, i) => l.trim() && timestamps[i] != null).length;
+                const pct = total ? Math.round(done / total * 100) : 0;
+                document.getElementById('syncProgress').style.width = pct + '%';
+                document.getElementById('syncPct').textContent = pct + '% synced';
+            }
+
+            // ============================================================
+            //  LRC PREVIEW
+            // ============================================================
+            function buildLRC() {
+                const lines = [];
+                const ti = document.getElementById('metaTitle').value.trim();
+                const ar = document.getElementById('metaArtist').value.trim();
+                const al = document.getElementById('metaAlbum').value.trim();
+                const au = document.getElementById('metaAuthor').value.trim();
+                const by = document.getElementById('metaBy').value.trim();
+                if (ti) lines.push(`[ti:${ti}]`);
+                if (ar) lines.push(`[ar:${ar}]`);
+                if (al) lines.push(`[al:${al}]`);
+                if (au) lines.push(`[au:${au}]`);
+                if (by) lines.push(`[by:${by}]`);
+                if (lines.length) lines.push('');
+                lyrics.forEach((line, i) => { const ts = timestamps[i]; if (ts != null) lines.push(`[${formatLRCTime(ts)}]${line}`);
+                    else lines.push(line || ''); });
+                return lines.join('\n');
+            }
+
+            window.updatePreview = () => {
+                const lrc = buildLRC();
+                const preview = document.getElementById('lrcPreview');
+                preview.innerHTML = '';
+                if (!lrc.trim()) {
+                    const dict = i18n[currentLang] || i18n.en;
+                    preview.innerHTML = `<span class="txt-secondary italic">${dict.previewPlaceholder}</span>`;
+                    return;
+                }
+                lrc.split('\n').forEach((line, i) => { const div = document.createElement('div');
+                    div.className = 'preview-line';
+                    div.id = 'previewLine_' + i;
+                    div.textContent = line;
+                    preview.appendChild(div); });
+            };
+
+            window.copyPreview = () => navigator.clipboard.writeText(buildLRC()).then(() => showToast('Copied!', 'success'));
+
+            // ============================================================
+            //  EXPORT / IMPORT
+            // ============================================================
+            window.exportLRC = () => { const lrc = buildLRC(); if (!lrc.trim()) { showToast('Nothing to export', 'error'); return; }
+                const ti = document.getElementById('metaTitle').value.trim() || 'lyrics';
+                const ar = document.getElementById('metaArtist').value.trim() || 'artist';
+                downloadFile(`${ti} - ${ar}.lrc`, lrc);
+                showToast('Exported!', 'success'); };
+            window.exportTXT = () => { downloadFile('lyrics.txt', lyrics.join('\n'));
+                showToast('TXT exported', 'success'); };
+
+            function downloadFile(name, content) { const a = document.createElement('a');
+                a.href = URL.createObjectURL(new Blob([content], { type: 'text/plain' }));
+                a.download = name;
+                a.click(); }
+
+            window.importLRC = () => { const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.lrc,.txt';
+                input.onchange = e => { const f = e.target.files[0]; if (f) { const r = new FileReader();
+                        r.onload = ev => parseLRCFile(ev.target.result);
+                        r.readAsText(f); } };
+                input.click(); };
+
+            function parseLRCFile(content) {
+                const lines = content.split('\n');
+                const meta = {};
+                const ts = [];
+                const txt = [];
+                const tsMap = {};
+                lines.forEach(line => {
+                    const m = line.match(/^\[(ti|ar|al|au|by):([^\]]*)\]/);
+                    if (m) { meta[m[1]] = m[2].trim(); return; }
+                    const tsMatch = line.match(/^\[(\d{2}):(\d{2}\.\d{2})\](.*)/);
+                    if (tsMatch) {
+                        const sec = parseInt(tsMatch[1]) * 60 + parseFloat(tsMatch[2]);
+                        const text = tsMatch[3].trim();
+                        const idx = txt.length;
+                        tsMap[idx] = sec;
+                        txt.push(text);
+                    } else if (line.trim()) {
+                        txt.push(line.trim());
+                    }
+                });
+                if (meta.ti) document.getElementById('metaTitle').value = meta.ti;
+                if (meta.ar) document.getElementById('metaArtist').value = meta.ar;
+                if (meta.al) document.getElementById('metaAlbum').value = meta.al;
+                if (meta.au) document.getElementById('metaAuthor').value = meta.au;
+                if (meta.by) document.getElementById('metaBy').value = meta.by;
+                const sorted = Object.keys(tsMap).sort((a, b) => a - b);
+                const finalTxt = [];
+                const finalTs = [];
+                for (let i = 0; i < txt.length; i++) {
+                    finalTxt.push(txt[i] || '');
+                    finalTs.push(tsMap[i] !== undefined ? tsMap[i] : null);
+                }
+                lyrics = finalTxt;
+                timestamps = finalTs;
+                document.getElementById('lyricsTextarea').value = lyrics.join('\n');
+                currentLyricsInput = lyrics.join('\n');
+                renderSyncList();
+                updatePreview();
+                updateProgress();
+                showToast('LRC imported!', 'success');
+            }
+
+            // ============================================================
+            //  UTILITY FUNCTIONS
+            // ============================================================
+            window.toggleCase = () => {
+                const ta = document.getElementById('lyricsTextarea');
+                const val = ta.value;
+                const toggled = val.split('\n').map(l => l === l.toUpperCase() ? l.toLowerCase() : l.toUpperCase()).join('\n');
+                ta.value = toggled;
+                onLyricsInput();
+            };
+
+            window.splitLines = () => {
+                const ta = document.getElementById('lyricsTextarea');
+                const val = ta.value;
+                const split = val.split('\n').map(l => {
+                    if (l.length > 60) {
+                        const words = l.split(' ');
+                        let lines = [];
+                        let cur = '';
+                        words.forEach(w => {
+                            if ((cur + ' ' + w).length > 60) { lines.push(cur);
+                                cur = w; } else { cur = cur ? cur + ' ' + w : w; }
+                        });
+                        if (cur) lines.push(cur);
+                        return lines.join('\n');
+                    }
+                    return l;
+                }).join('\n');
+                ta.value = split;
+                onLyricsInput();
+            };
+
+            function pushUndo(state) { if (state !== undefined) undoStack.push(state);
+                redoStack = []; }
+
+            window.undoAction = () => { if (!undoStack.length) { showToast('Nothing to undo', 'info'); return; } const state =
+                    undoStack.pop();
+                redoStack.push(currentLyricsInput);
+                document.getElementById('lyricsTextarea').value = state;
+                currentLyricsInput = state;
+                parseLyrics();
+                updatePreview(); };
+            window.redoAction = () => { if (!redoStack.length) { showToast('Nothing to redo', 'info'); return; } const state =
+                    redoStack.pop();
+                undoStack.push(currentLyricsInput);
+                document.getElementById('lyricsTextarea').value = state;
+                currentLyricsInput = state;
+                parseLyrics();
+                updatePreview(); };
+
+            window.findNext = () => {
+                const find = document.getElementById('findInput').value;
+                const ta = document.getElementById('lyricsTextarea');
+                const val = ta.value;
+                const idx = val.indexOf(find, ta.selectionStart + 1);
+                if (idx >= 0) { ta.selectionStart = idx;
+                    ta.selectionEnd = idx + find.length;
+                    ta.focus();
+                    document.getElementById('findResult').textContent = `Found at ${idx}`; } else { document.getElementById(
+                        'findResult').textContent = 'No more matches'; }
+            };
+
+            window.replaceAll = () => {
+                const find = document.getElementById('findInput').value;
+                const replace = document.getElementById('replaceInput').value;
+                if (!find) { showToast('Enter text to find', 'error'); return; }
+                const ta = document.getElementById('lyricsTextarea');
+                const newVal = ta.value.split(find).join(replace);
+                if (newVal === ta.value) { showToast('No matches found', 'info'); return; }
+                ta.value = newVal;
+                onLyricsInput();
+                document.getElementById('findResult').textContent = `Replaced all occurrences`;
+                showToast('Replaced all!', 'success');
+            };
+
+            window.setMode = (m) => {
+                mode = m;
+                document.getElementById('modeLineBtn').className =
+                    `px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${m==='line'?'btn-accent':'btn-ghost txt-secondary'}`;
+                document.getElementById('modeWordBtn').className =
+                    `px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${m==='word'?'btn-accent':'btn-ghost txt-secondary'}`;
+                document.getElementById('wordModePanel').classList.toggle('hidden', m !== 'word');
+                if (m === 'word') buildWordChips();
+            };
+
+            function buildWordChips() {
+                const container = document.getElementById('wordChipsContainer');
+                container.innerHTML = '';
+                const words = lyrics.join(' ').split(/\s+/).filter(w => w);
+                words.forEach((w, i) => {
+                    const chip = document.createElement('span');
+                    chip.className = 'word-chip';
+                    chip.textContent = w;
+                    chip.dataset.idx = i;
+                    chip.onclick = () => {
+                        if (!audioLoaded) { showToast('Load audio first', 'error'); return; }
+                        chip.classList.add('stamped');
+                        const time = audioEl.currentTime;
+                        const t = document.createElement('span');
+                        t.className = 'chip-time';
+                        t.textContent = formatLRCTime(time);
+                        chip.appendChild(t);
+                        wordTimestamps[i] = time;
+                        showToast(`Word stamped at ${formatLRCTime(time)}`, 'success');
+                    };
+                    container.appendChild(chip);
+                });
+            }
+
+            window.newProject = () => { if (confirm('Start a new project? Current work will be lost.')) resetProject(); };
+            window.resetProject = () => {
+                document.getElementById('lyricsTextarea').value = '';
+                document.getElementById('metaTitle').value = '';
+                document.getElementById('metaArtist').value = '';
+                document.getElementById('metaAlbum').value = '';
+                document.getElementById('metaAuthor').value = '';
+                document.getElementById('metaBy').value = '';
+                document.getElementById('seekBar').value = 0;
+                document.getElementById('seekFill').style.width = '0%';
+                document.getElementById('currentTime').textContent = '0:00.00';
+                document.getElementById('totalTime').textContent = '0:00.00';
+                document.getElementById('audioFileName').classList.add('hidden');
+                document.getElementById('audioDropContent').classList.remove('hidden');
+                audioLoaded = false;
+                audioEl.pause();
+                audioEl.src = '';
+                audioEl.load();
+                setPlayState(false);
+                stopRAF();
+                lyrics = [];
+                timestamps = [];
+                activeLine = -1;
+                undoStack = [];
+                redoStack = [];
+                currentLyricsInput = '';
+                wordTimestamps = [];
+                renderSyncList();
+                updatePreview();
+                updateProgress();
+                showToast('Project reset', 'info');
+            };
+
+            window.loadLyricsFile = () => document.getElementById('lyricsFileInput').click();
+            window.loadLyricsFileEvent = (e) => {
+                const f = e.target.files[0];
+                if (!f) return;
+                const r = new FileReader();
+                r.onload = (ev) => {
+                    const content = ev.target.result;
+                    const lines = content.split('\n');
+                    const hasTS = lines.some(l => /^\[\d{2}:\d{2}\.\d{2}\]/.test(l));
+                    if (hasTS) {
+                        parseLRCFile(content);
+                    } else {
+                        document.getElementById('lyricsTextarea').value = content;
+                        currentLyricsInput = content;
+                        parseLyrics();
+                        updatePreview();
+                        showToast('Lyrics loaded!', 'success');
+                    }
+                };
+                r.readAsText(f);
+                e.target.value = '';
+            };
+
+            // ============================================================
+            //  KEYBOARD
+            // ============================================================
+            document.addEventListener('keydown', e => {
+                const tag = document.activeElement.tagName;
+                if (e.ctrlKey && e.key === 'z') { e.preventDefault();
+                    undoAction(); return; }
+                if (e.ctrlKey && e.key === 'y') { e.preventDefault();
+                    redoAction(); return; }
+                if (e.ctrlKey && e.key === 'p') { e.preventDefault();
+                    togglePlay(); return; }
+                if (e.ctrlKey && e.key === 'h') { e.preventDefault();
+                    openModal('findReplaceModal'); return; }
+                if (tag === 'INPUT' || tag === 'SELECT') return;
+                if (e.key === ' ' && tag !== 'TEXTAREA') { e.preventDefault();
+                    addTimestamp(); return; }
+                if (e.key === 'ArrowLeft') { e.preventDefault();
+                    seekRelative(-2); return; }
+                if (e.key === 'ArrowRight') { e.preventDefault();
+                    seekRelative(2); return; }
+                if (e.key === 'Enter' && tag !== 'TEXTAREA') { e.preventDefault();
+                    addTimestamp(); return; }
+            });
+
+            window.handleLyricsKeydown = (e) => {
+                if (e.ctrlKey && e.key === 'z') { e.preventDefault();
+                    undoAction(); return; }
+                if (e.ctrlKey && e.key === 'y') { e.preventDefault();
+                    redoAction(); return; }
+            };
+
+            // ============================================================
+            //  INIT
+            // ============================================================
+            document.addEventListener('DOMContentLoaded', function() {
+                // Setup cookie consent
+                checkCookieConsent();
+
+                // Prevent horizontal swivel
+                preventHorizontalSwipe();
+
+                // Apply initial theme & lang (will be overridden by cookie if accepted)
+                const theme = localStorage.getItem('hajirTheme') || 'dark';
+                applyTheme(theme);
+                switchLang(currentLang);
+
+                // Show tutorial if not seen and consent is given
+                if (hasConsent() && !localStorage.getItem('hajirTutorialSeen')) {
+                    openModal('tutorialModal');
+                    localStorage.setItem('hajirTutorialSeen', '1');
+                } else if (!hasConsent()) {
+                    // Show tutorial anyway, but don't store preference yet
+                    if (!getCookie('hajir_tutorial_shown')) {
+                        openModal('tutorialModal');
+                        setCookie('hajir_tutorial_shown', '1', 30);
+                    }
+                }
+
+                updatePreview();
+            });
+
+            // ─── Expose globals for inline onclick ───
+            window.exportLRC = exportLRC;
+            window.exportTXT = exportTXT;
+            window.importLRC = importLRC;
+            window.copyPreview = copyPreview;
+            window.newProject = newProject;
+            window.resetProject = resetProject;
+            window.loadLyricsFile = loadLyricsFile;
+            window.loadLyricsFileEvent = loadLyricsFileEvent;
+            window.toggleCase = toggleCase;
+            window.splitLines = splitLines;
+            window.undoAction = undoAction;
+            window.redoAction = redoAction;
+            window.findNext = findNext;
+            window.replaceAll = replaceAll;
+            window.setMode = setMode;
+            window.addTimestamp = addTimestamp;
+            window.adjustAll = adjustAll;
+            window.clearTimestamps = clearTimestamps;
+
+        })();
+    </script>
 </body>
 </html>
