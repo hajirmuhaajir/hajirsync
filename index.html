@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <!-- ============== SEO & META ============== -->
+    <!-- SEO & META -->
     <title>HajirSync — Sync Your Lyrics, Feel the Flow | LRC Editor &amp; Audio Syncer</title>
     <meta name="description" content="HajirSync is a free, offline-first LRC editor and audio syncing tool. Sync lyrics to your music, export .lrc files, and feel the flow." />
     <meta name="keywords" content="lrc editor, lyric sync, audio syncer, music lyrics, lrc generator, hajirsync, sync lyrics" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://hajirsync.app/" />
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://hajirsync.haiere.workers.dev/" />
     <meta property="og:title" content="HajirSync — Sync Your Lyrics, Feel the Flow" />
@@ -25,7 +25,7 @@
     <meta name="twitter:description" content="Free, offline-first LRC editor and audio syncing tool. Sync lyrics to your music, export .lrc files." />
     <meta name="twitter:image" content="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
     <meta name="twitter:site" content="@hajirsync" />
-    <!-- JSON-LD Structured Data -->
+    <!-- JSON-LD -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -47,18 +47,15 @@
             }
         }
     </script>
-
-    <!-- ============== FAVICON ============== -->
+    <!-- FAVICON -->
     <link rel="icon" type="image/webp" href="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
     <link rel="apple-touch-icon" href="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
-
-    <!-- ============== Tailwind + Fonts ============== -->
+    <!-- Tailwind + Fonts -->
     <script src="https://cdn.tailwindcss.com">
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -108,9 +105,8 @@
             }
         }
     </script>
-
     <style>
-        /* ─── Reset & Base ─── */
+        /* Reset & Base */
         *,
         *::before,
         *::after {
@@ -118,7 +114,6 @@
             margin: 0;
             padding: 0;
         }
-
         html {
             scroll-behavior: smooth;
             overflow-x: hidden;
@@ -126,7 +121,6 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-
         body {
             font-family: 'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -137,8 +131,7 @@
             position: relative;
             touch-action: pan-y;
         }
-
-        /* ─── Disable horizontal scroll ─── */
+        /* Disable horizontal scroll */
         .no-swivel {
             overflow-x: hidden !important;
             width: 100% !important;
@@ -147,8 +140,7 @@
         .no-swivel * {
             max-width: 100%;
         }
-
-        /* ─── Scrollbar ─── */
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 5px;
             height: 5px;
@@ -164,8 +156,7 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(148, 163, 184, 0.4);
         }
-
-        /* ─── Glass Card ─── */
+        /* Glass Card */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(24px) saturate(1.2);
@@ -179,7 +170,6 @@
             box-shadow: var(--glass-shadow-hover);
             transform: translateY(-2px);
         }
-
         .glass-card-solid {
             background: var(--glass-bg-solid);
             backdrop-filter: blur(24px) saturate(1.2);
@@ -188,8 +178,7 @@
             border-radius: 20px;
             box-shadow: var(--glass-shadow);
         }
-
-        /* ─── Light / Dark Variables ─── */
+        /* Light / Dark Variables */
         body.light {
             --glass-bg: rgba(255, 255, 255, 0.55);
             --glass-bg-solid: rgba(255, 255, 255, 0.85);
@@ -208,7 +197,6 @@
             --toast-bg: #0F172A;
             --toast-color: #F1F5F9;
         }
-
         body.dark,
         body:not(.light) {
             --glass-bg: rgba(15, 23, 42, 0.55);
@@ -228,7 +216,6 @@
             --toast-bg: #0F172A;
             --toast-color: #F1F5F9;
         }
-
         body.light {
             background: var(--bg-page);
             color: var(--text-primary);
@@ -237,8 +224,7 @@
             background: var(--bg-page);
             color: var(--text-primary);
         }
-
-        /* ─── Header ─── */
+        /* Header */
         .app-header {
             position: sticky;
             top: 0;
@@ -256,8 +242,7 @@
         body.dark .app-header.scrolled {
             box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
         }
-
-        /* ─── Glass Input ─── */
+        /* Glass Input */
         .glass-input {
             background: var(--input-bg);
             border: 1px solid var(--input-border);
@@ -282,8 +267,7 @@
         .glass-input:hover {
             border-color: rgba(59, 130, 246, 0.3);
         }
-
-        /* ─── Glass Textarea ─── */
+        /* Glass Textarea */
         .glass-textarea {
             background: var(--input-bg);
             border: 1px solid var(--input-border);
@@ -309,8 +293,7 @@
             color: var(--text-secondary);
             opacity: 0.5;
         }
-
-        /* ─── Buttons ─── */
+        /* Buttons */
         .btn-primary {
             background: #3B82F6;
             color: #fff;
@@ -346,7 +329,6 @@
             pointer-events: none;
             border-radius: inherit;
         }
-
         .btn-ghost-glass {
             background: transparent;
             color: var(--text-primary);
@@ -373,7 +355,6 @@
         .btn-ghost-glass:active {
             transform: scale(0.96);
         }
-
         .btn-icon {
             width: 40px;
             height: 40px;
@@ -398,7 +379,6 @@
         .btn-icon:active {
             transform: scale(0.93);
         }
-
         .btn-icon-accent {
             background: #3B82F6;
             color: #fff;
@@ -420,8 +400,7 @@
         .btn-icon-accent:active {
             transform: scale(0.95);
         }
-
-        /* ─── Lang Switch ─── */
+        /* Lang Switch */
         .lang-switch {
             display: flex;
             gap: 2px;
@@ -451,8 +430,7 @@
             color: #fff;
             box-shadow: 0 2px 12px rgba(59, 130, 246, 0.3);
         }
-
-        /* ─── Seek Bar ─── */
+        /* Seek Bar */
         .seek-track {
             position: relative;
             height: 4px;
@@ -507,8 +485,7 @@
             border: none;
             box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15), 0 2px 12px rgba(59, 130, 246, 0.3);
         }
-
-        /* ─── Volume Bar ─── */
+        /* Volume Bar */
         .volume-bar {
             -webkit-appearance: none;
             appearance: none;
@@ -540,8 +517,7 @@
             cursor: pointer;
             border: none;
         }
-
-        /* ─── Drop Zone ─── */
+        /* Drop Zone */
         .drop-zone {
             border: 2px dashed rgba(59, 130, 246, 0.2);
             border-radius: 16px;
@@ -572,8 +548,7 @@
             opacity: 0.8;
             transform: scale(1.05);
         }
-
-        /* ─── Lyric Lines ─── */
+        /* Lyric Lines */
         .lyric-line {
             padding: 10px 14px;
             border-radius: 12px;
@@ -605,7 +580,6 @@
             opacity: 0.5;
             border-left-color: transparent;
         }
-
         .timestamp-badge {
             font-family: 'JetBrains Mono', monospace;
             font-size: 11px;
@@ -621,8 +595,7 @@
         .lyric-line.active .timestamp-badge {
             background: rgba(59, 130, 246, 0.18);
         }
-
-        /* ─── Preview ─── */
+        /* Preview */
         .preview-pane {
             border-radius: 14px;
             padding: 16px 20px;
@@ -646,8 +619,7 @@
             color: #3B82F6;
             font-weight: 600;
         }
-
-        /* ─── Toast ─── */
+        /* Toast */
         .toast {
             position: fixed;
             bottom: 28px;
@@ -691,8 +663,7 @@
             opacity: 0;
             transform: translateY(20px) scale(0.95);
         }
-
-        /* ─── Modal ─── */
+        /* Modal */
         .modal-backdrop {
             position: fixed;
             inset: 0;
@@ -720,8 +691,7 @@
             border: 1px solid var(--glass-border);
             box-shadow: 0 32px 80px rgba(0, 0, 0, 0.3);
         }
-
-        /* ─── KBD ─── */
+        /* KBD */
         .kbd {
             font-family: 'JetBrains Mono', monospace;
             font-size: 11px;
@@ -734,8 +704,7 @@
             font-weight: 500;
             transition: all 0.2s;
         }
-
-        /* ─── Cookie Banner ─── */
+        /* Cookie Banner */
         .cookie-banner {
             position: fixed;
             bottom: 24px;
@@ -770,8 +739,7 @@
         .cookie-banner .cookie-text a:hover {
             text-decoration: underline;
         }
-
-        /* ─── Word Chips ─── */
+        /* Word Chips */
         .word-chip {
             display: inline-flex;
             align-items: center;
@@ -801,16 +769,14 @@
             font-size: 10px;
             opacity: 0.7;
         }
-
-        /* ─── Progress ─── */
+        /* Progress */
         .progress-bar {
             height: 3px;
             background: linear-gradient(90deg, #3B82F6, #60A5FA);
             transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             border-radius: 4px;
         }
-
-        /* ─── Tooltip ─── */
+        /* Tooltip */
         .tooltip {
             position: relative;
         }
@@ -838,8 +804,7 @@
             opacity: 1;
             transform: translateX(-50%) scale(1);
         }
-
-        /* ─── Footer ─── */
+        /* Footer */
         .app-footer {
             border-top: 1px solid var(--glass-border);
             padding: 24px 20px;
@@ -849,8 +814,7 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
-
-        /* ─── Mobile Menu ─── */
+        /* Mobile Menu */
         .mobile-menu {
             position: fixed;
             inset: 0;
@@ -887,8 +851,7 @@
         .mobile-menu .mobile-link:hover {
             background: rgba(59, 130, 246, 0.08);
         }
-
-        /* ─── Animations ─── */
+        /* Animations */
         @keyframes slideIn {
             from {
                 transform: translateY(20px) scale(0.95);
@@ -944,15 +907,13 @@
                 box-shadow: 0 0 32px rgba(59, 130, 246, 0.25);
             }
         }
-
         .animate-float {
             animation: float 6s ease-in-out infinite;
         }
         .animate-glow {
             animation: glow 2.5s ease-in-out infinite alternate;
         }
-
-        /* ─── Responsive ─── */
+        /* Responsive */
         @media (max-width: 640px) {
             .modal {
                 padding: 24px;
@@ -1025,7 +986,6 @@
                 min-height: 150px;
             }
         }
-
         @media (max-width: 480px) {
             .modal {
                 padding: 18px;
@@ -1046,7 +1006,6 @@
                 padding: 3px 10px;
             }
         }
-
         @media (max-width: 380px) {
             .app-header .logo-text {
                 display: none;
@@ -1065,8 +1024,7 @@
                 font-size: 14px;
             }
         }
-
-        /* ─── Accessibility ─── */
+        /* Accessibility */
         @media (prefers-reduced-motion: reduce) {
             *,
             *::before,
@@ -1076,13 +1034,11 @@
                 transition-duration: 0.01ms !important;
             }
         }
-
         :focus-visible {
             outline: 2px solid #3B82F6;
             outline-offset: 2px;
         }
-
-        /* ─── Utility ─── */
+        /* Utility */
         .text-balance {
             text-wrap: balance;
         }
@@ -1098,8 +1054,7 @@
             background-size: 200% 100%;
             animation: shimmer 3s ease-in-out infinite;
         }
-
-        /* ─── Sync Button Pulse ─── */
+        /* Sync Button Pulse */
         .sync-btn-pulse {
             animation: pulse-ring 2s ease-out infinite;
         }
@@ -1114,8 +1069,7 @@
                 box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
             }
         }
-
-        /* ─── Select ─── */
+        /* Select */
         .glass-select {
             background: var(--input-bg);
             border: 1px solid var(--glass-border);
@@ -1136,8 +1090,7 @@
             background: var(--bg-page);
             color: var(--text-primary);
         }
-
-        /* ─── Section Title ─── */
+        /* Section Title */
         .section-title {
             font-family: 'Syne', sans-serif;
             font-weight: 700;
@@ -1160,7 +1113,7 @@
 </head>
 <body class="dark min-h-screen transition-colors duration-500 no-swivel touch-pan-y">
 
-    <!-- ============== COOKIE BANNER ============== -->
+    <!-- COOKIE BANNER -->
     <div id="cookieBanner" class="cookie-banner hidden flex-col gap-4">
         <div class="cookie-text">
             🍪 We use cookies to remember your preferences (theme, language, and tutorial status). No tracking, no ads, purely local. Learn more in our
@@ -1172,12 +1125,10 @@
         </div>
     </div>
 
-    <!-- ============== TOAST CONTAINER ============== -->
-    <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none">
-        <!-- Toasts will be injected here -->
-    </div>
+    <!-- TOAST CONTAINER -->
+    <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- ============== MODALS ============== -->
+    <!-- MODALS -->
     <!-- Shortcuts Modal -->
     <div id="shortcutsModal" class="modal-backdrop hidden" onclick="if(event.target===this)closeModal('shortcutsModal')">
         <div class="modal">
@@ -1188,7 +1139,6 @@
             <div class="grid gap-2 text-sm" id="shortcutsList"></div>
         </div>
     </div>
-
     <!-- Find & Replace Modal -->
     <div id="findReplaceModal" class="modal-backdrop hidden" onclick="if(event.target===this)closeModal('findReplaceModal')">
         <div class="modal">
@@ -1213,7 +1163,6 @@
             </div>
         </div>
     </div>
-
     <!-- Tutorial Modal -->
     <div id="tutorialModal" class="modal-backdrop hidden" onclick="if(event.target===this)closeModal('tutorialModal')">
         <div class="modal">
@@ -1227,7 +1176,7 @@
         </div>
     </div>
 
-    <!-- ============== HEADER ============== -->
+    <!-- HEADER -->
     <header class="app-header px-4 py-3" id="appHeader" role="banner">
         <div class="max-w-7xl mx-auto flex items-center gap-3">
             <!-- Logo -->
@@ -1238,7 +1187,6 @@
                     <div class="text-secondary text-xs leading-tight font-medium" data-i18n="tagline">Sync Your Lyrics, Feel the Flow</div>
                 </div>
             </button>
-
             <!-- Progress (desktop) -->
             <div class="flex-1 hidden md:flex items-center gap-3 px-3">
                 <div class="flex-1 h-1.5 rounded-full overflow-hidden" style="background:rgba(30,41,59,0.2)">
@@ -1246,7 +1194,6 @@
                 </div>
                 <span id="syncPct" class="text-xs text-secondary font-mono font-medium whitespace-nowrap tabular-nums">0%</span>
             </div>
-
             <!-- Actions -->
             <div class="flex items-center gap-1.5 ml-auto">
                 <!-- Language Switcher -->
@@ -1254,7 +1201,6 @@
                     <button onclick="switchLang('id')" id="langId" class="lang-btn active" aria-label="Switch to Indonesian">ID</button>
                     <button onclick="switchLang('en')" id="langEn" class="lang-btn" aria-label="Switch to English">EN</button>
                 </div>
-
                 <!-- Desktop actions -->
                 <div class="hidden sm:flex items-center gap-1.5">
                     <button onclick="newProject()" class="btn-ghost-glass text-sm px-3.5 py-2 tooltip" data-i18n-tip="newTip" aria-label="New project">
@@ -1270,18 +1216,15 @@
                         <span data-i18n="exportBtn">Export</span>
                     </button>
                 </div>
-
                 <!-- Shortcuts -->
                 <button onclick="openModal('shortcutsModal')" class="btn-icon tooltip" data-i18n-tip="shortcutsTip" aria-label="Keyboard shortcuts">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path stroke-linecap="round" d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h12"/></svg>
                 </button>
-
                 <!-- Theme -->
                 <button onclick="toggleTheme()" id="themeBtn" class="btn-icon tooltip" data-i18n-tip="themeTip" aria-label="Toggle theme">
                     <svg id="sunIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
                     <svg id="moonIcon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
                 </button>
-
                 <!-- Mobile Menu Toggle -->
                 <button onclick="toggleMobileMenu()" class="btn-icon sm:hidden" aria-label="Toggle menu" id="mobileMenuToggle">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -1290,7 +1233,7 @@
         </div>
     </header>
 
-    <!-- ============== MOBILE MENU ============== -->
+    <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
         <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 btn-icon text-2xl" aria-label="Close menu">×</button>
         <button onclick="newProject();toggleMobileMenu()" class="mobile-link" data-i18n="newBtn">New</button>
@@ -1300,7 +1243,7 @@
         <button onclick="toggleTheme();toggleMobileMenu()" class="mobile-link">Toggle Theme</button>
     </div>
 
-    <!-- ============== MAIN ============== -->
+    <!-- MAIN -->
     <main class="max-w-7xl mx-auto px-4 py-6 grid gap-5 no-swivel" role="main">
 
         <!-- Row 1: Metadata + Player -->
@@ -1349,14 +1292,12 @@
                     </div>
                 </div>
             </section>
-
             <!-- Audio Player -->
             <section class="glass-card p-5 flex flex-col gap-4 animate-fade-in" style="animation-delay:0.08s" aria-label="Audio player">
                 <h2 class="section-title">
                     <span class="accent-line"></span>
                     <span data-i18n="playerTitle">Audio Player</span>
                 </h2>
-
                 <!-- Drop Zone -->
                 <div id="audioDropZone" class="drop-zone" onclick="document.getElementById('audioFileInput').click()" ondragover="handleDragOver(event,'audioDropZone')" ondragleave="handleDragLeave('audioDropZone')" ondrop="handleAudioDrop(event)" role="button" tabindex="0" aria-label="Drop audio file or click to browse">
                     <div id="audioDropContent">
@@ -1368,7 +1309,6 @@
                 </div>
                 <input type="file" id="audioFileInput" accept="audio/*" class="hidden" onchange="loadAudioFile(event)" aria-label="Load audio file" />
                 <audio id="audioElement" class="hidden" aria-label="Audio player"></audio>
-
                 <!-- Player Controls -->
                 <div class="space-y-3">
                     <!-- Seek -->
@@ -1382,7 +1322,6 @@
                             <span id="totalTime">0:00.00</span>
                         </div>
                     </div>
-
                     <!-- Controls -->
                     <div class="flex items-center justify-between gap-2 flex-wrap">
                         <div class="flex items-center gap-1.5">
@@ -1438,15 +1377,12 @@
                     </div>
                 </div>
                 <input type="file" id="lyricsFileInput" accept=".txt,.lrc" class="hidden" onchange="loadLyricsFileEvent(event)" aria-label="Load lyrics file" />
-
                 <!-- Mode toggle -->
                 <div class="flex gap-1 p-1 rounded-xl w-fit" style="background:rgba(30,41,59,0.12)">
                     <button id="modeLineBtn" onclick="setMode('line')" class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all btn-primary" data-i18n="lineMode">Line Timing</button>
                     <button id="modeWordBtn" onclick="setMode('word')" class="px-4 py-1.5 rounded-lg text-xs font-medium transition-all btn-ghost-glass" data-i18n="wordMode">Word-by-Word</button>
                 </div>
-
                 <textarea id="lyricsTextarea" class="glass-textarea" placeholder="Type or paste your lyrics here…" oninput="onLyricsInput()" onkeydown="handleLyricsKeydown(event)" aria-label="Lyrics editor textarea"></textarea>
-
                 <div class="flex items-center justify-between text-xs text-secondary">
                     <span id="lineCount">0 lines</span>
                     <div class="flex gap-3">
@@ -1455,7 +1391,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- Sync Lines -->
             <section class="lg:col-span-2 glass-card p-5 flex flex-col gap-3 animate-fade-in" style="animation-delay:0.18s" aria-label="Sync lines">
                 <h2 class="section-title">
@@ -1518,21 +1453,19 @@
         </div>
     </main>
 
-    <!-- ============== FOOTER ============== -->
+    <!-- FOOTER -->
     <footer class="app-footer no-swivel" role="contentinfo">
         <span data-i18n="footerText">Made with ❤️ in your browser – 100% offline</span> &nbsp;·&nbsp;
         <span class="font-syne font-semibold text-accent">HajirSync</span>
-        <span class="block sm:inline mt-1 sm:mt-0 opacity-60"> · v3.1.0</span>
+        <span class="block sm:inline mt-1 sm:mt-0 opacity-60"> · v3.1.1</span>
     </footer>
 
-    <!-- ============== JAVASCRIPT ============== -->
+    <!-- JAVASCRIPT -->
     <script>
         (function() {
             'use strict';
 
-            // ──────────────────────────────────────────────────────────────
-            //  COOKIE MANAGEMENT
-            // ──────────────────────────────────────────────────────────────
+            // ─── COOKIE MANAGEMENT ──────────────────────────────────────
             const COOKIE_NAME = 'hajir_consent';
             const COOKIE_EXPIRY = 365;
 
@@ -1590,9 +1523,7 @@
                 }
             }
 
-            // ──────────────────────────────────────────────────────────────
-            //  DISABLE HORIZONTAL SWIVEL
-            // ──────────────────────────────────────────────────────────────
+            // ─── DISABLE HORIZONTAL SWIVEL ─────────────────────────────
             function preventHorizontalSwipe() {
                 let startX = 0,
                     startY = 0;
@@ -1625,9 +1556,7 @@
                 }, { passive: false });
             }
 
-            // ──────────────────────────────────────────────────────────────
-            //  MOBILE MENU
-            // ──────────────────────────────────────────────────────────────
+            // ─── MOBILE MENU ────────────────────────────────────────────
             let mobileMenuOpen = false;
 
             window.toggleMobileMenu = function() {
@@ -1636,9 +1565,7 @@
                 document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
             };
 
-            // ──────────────────────────────────────────────────────────────
-            //  I18N
-            // ──────────────────────────────────────────────────────────────
+            // ─── I18N ────────────────────────────────────────────────────
             const i18n = {
                 id: {
                     tagline: 'Sinkronkan Lirikmu, Rasakan Alurnya',
@@ -1806,9 +1733,7 @@
                 ).join('');
             }
 
-            // ──────────────────────────────────────────────────────────────
-            //  THEME
-            // ──────────────────────────────────────────────────────────────
+            // ─── THEME ───────────────────────────────────────────────────
             function applyTheme(t) {
                 document.body.classList.remove('dark', 'light');
                 document.body.classList.add(t);
@@ -1825,9 +1750,7 @@
                 applyTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
             };
 
-            // ──────────────────────────────────────────────────────────────
-            //  MODALS
-            // ──────────────────────────────────────────────────────────────
+            // ─── MODALS ──────────────────────────────────────────────────
             window.openModal = function(id) {
                 const el = document.getElementById(id);
                 if (el) el.classList.remove('hidden');
@@ -1838,9 +1761,7 @@
                 if (el) el.classList.add('hidden');
             };
 
-            // ──────────────────────────────────────────────────────────────
-            //  TOAST
-            // ──────────────────────────────────────────────────────────────
+            // ─── TOAST ──────────────────────────────────────────────────
             function showToast(msg, type, dur) {
                 type = type || 'info';
                 dur = dur || 3200;
@@ -1856,9 +1777,7 @@
                 }, dur);
             }
 
-            // ──────────────────────────────────────────────────────────────
-            //  AUDIO
-            // ──────────────────────────────────────────────────────────────
+            // ─── AUDIO ──────────────────────────────────────────────────
             let audioEl = document.getElementById('audioElement');
             let timestamps = [];
             let lyrics = [];
@@ -1998,9 +1917,7 @@
                 return String(m).padStart(2, '0') + ':' + sec;
             }
 
-            // ──────────────────────────────────────────────────────────────
-            //  LYRICS EDITOR
-            // ──────────────────────────────────────────────────────────────
+            // ─── LYRICS EDITOR ──────────────────────────────────────────
             window.onLyricsInput = function() {
                 const val = document.getElementById('lyricsTextarea').value;
                 pushUndo(currentLyricsInput);
@@ -2080,9 +1997,7 @@
                 if (el) el.classList.add('active-preview');
             }
 
-            // ──────────────────────────────────────────────────────────────
-            //  SYNC
-            // ──────────────────────────────────────────────────────────────
+            // ─── SYNC ────────────────────────────────────────────────────
             window.addTimestamp = function() {
                 if (!audioLoaded) { showToast('Load audio first!', 'error'); return; }
                 let target = -1;
@@ -2132,9 +2047,7 @@
                 document.getElementById('syncPct').textContent = pct + '% synced';
             }
 
-            // ──────────────────────────────────────────────────────────────
-            //  LRC PREVIEW
-            // ──────────────────────────────────────────────────────────────
+            // ─── LRC PREVIEW ────────────────────────────────────────────
             function buildLRC() {
                 const lines = [];
                 const ti = document.getElementById('metaTitle').value.trim();
@@ -2178,9 +2091,7 @@
                 navigator.clipboard.writeText(buildLRC()).then(function() { showToast('Copied!', 'success'); });
             };
 
-            // ──────────────────────────────────────────────────────────────
-            //  EXPORT / IMPORT
-            // ──────────────────────────────────────────────────────────────
+            // ─── EXPORT / IMPORT ────────────────────────────────────────
             window.exportLRC = function() {
                 const lrc = buildLRC();
                 if (!lrc.trim()) { showToast('Nothing to export', 'error'); return; }
@@ -2259,9 +2170,7 @@
                 showToast('LRC imported!', 'success');
             }
 
-            // ──────────────────────────────────────────────────────────────
-            //  UTILITY
-            // ──────────────────────────────────────────────────────────────
+            // ─── UTILITY ────────────────────────────────────────────────
             window.toggleCase = function() {
                 const ta = document.getElementById('lyricsTextarea');
                 const val = ta.value;
@@ -2444,9 +2353,7 @@
                 e.target.value = '';
             };
 
-            // ──────────────────────────────────────────────────────────────
-            //  KEYBOARD
-            // ──────────────────────────────────────────────────────────────
+            // ─── KEYBOARD ───────────────────────────────────────────────
             document.addEventListener('keydown', function(e) {
                 const tag = document.activeElement.tagName;
                 if (e.ctrlKey && e.key === 'z') { e.preventDefault();
@@ -2475,12 +2382,8 @@
                     window.redoAction(); return; }
             };
 
-            // ──────────────────────────────────────────────────────────────
-            //  HEADER SCROLL EFFECT
-            // ──────────────────────────────────────────────────────────────
-            let lastScroll = 0;
+            // ─── HEADER SCROLL EFFECT ──────────────────────────────────
             const header = document.getElementById('appHeader');
-
             document.addEventListener('scroll', function() {
                 const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
                 if (currentScroll > 20) {
@@ -2488,12 +2391,9 @@
                 } else {
                     header.classList.remove('scrolled');
                 }
-                lastScroll = currentScroll;
             }, { passive: true });
 
-            // ──────────────────────────────────────────────────────────────
-            //  INIT
-            // ──────────────────────────────────────────────────────────────
+            // ─── INIT ───────────────────────────────────────────────────
             document.addEventListener('DOMContentLoaded', function() {
                 checkCookieConsent();
                 preventHorizontalSwipe();
@@ -2511,11 +2411,10 @@
                         setCookie('hajir_tutorial_shown', '1', 30);
                     }
                 }
-
                 updatePreview();
             });
 
-            // ─── Expose globals for inline onclick ───
+            // ─── EXPOSE GLOBALS ─────────────────────────────────────────
             window.exportLRC = exportLRC;
             window.exportTXT = exportTXT;
             window.importLRC = importLRC;
