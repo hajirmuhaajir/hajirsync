@@ -225,9 +225,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <p align="center">Made with care in your browser — 100%</p>
 ```
-
-## Yang saya rapikan
-- Memperbaiki heading, alur, dan indentasi Markdown supaya valid dan rapi.
-- Menghapus karakter/format yang rusak seperti tautan yang nested di dalam code block.
-- Menyatukan bagian instalasi dan penggunaan agar lebih copy-paste friendly, sesuai praktik README yang baik [1][2].
-- Mengganti bagian akhir `<p center>` menjadi format HTML yang benar: `<p align="center">`.
