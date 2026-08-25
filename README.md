@@ -13,6 +13,8 @@ Sync lyrics to music, create timed LRC files, and export them easily directly in
 
 Free LRC Editor & Audio Sync Tool is an offline-first web app for creating and editing synchronized lyrics. It runs entirely in the browser, so you can work without a backend server.
 
+---
+
 ## Features
 
 - Offline-first, works entirely in the browser with no server requirement.
@@ -23,6 +25,8 @@ Free LRC Editor & Audio Sync Tool is an offline-first web app for creating and e
 - Keyboard shortcuts, Find and Replace, and Undo/Redo support.
 - Dark and Light themes with local storage consent management.
 
+---
+
 ## Quick Start
 
 ### Install
@@ -30,7 +34,7 @@ Free LRC Editor & Audio Sync Tool is an offline-first web app for creating and e
 Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/hajirsync.git
+git clone https://github.com/haiere/hajirsync.git
 cd hajirsync
 ```
 
@@ -55,12 +59,16 @@ php -S localhost:8000
 
 Then open `http://localhost:8000` in your browser.
 
+---
+
 ## Usage
 
 1. Load an audio file by dragging and dropping it, or by clicking inside the audio player area.
 2. Enter lyrics by typing, pasting, or importing a `.txt` or `.lrc` file.
 3. Play the audio and press Space, or click Sync, as each line is sung.
 4. Export the finished `.lrc` file.
+
+---
 
 ## Keyboard Shortcuts
 
@@ -74,6 +82,8 @@ Then open `http://localhost:8000` in your browser.
 | Seek forward 2s | Right Arrow |
 | Next line | Enter |
 | Find and replace | Ctrl + H |
+
+---
 
 ## Configuration
 
@@ -97,6 +107,8 @@ When deploying as a Cloudflare Worker, configure these variables:
 | `HOST` | Server host address. |
 | `PORT` | Server listening port. |
 
+---
+
 ## Contributing
 
 Contributions are welcome.
@@ -115,9 +127,13 @@ Contributions are welcome.
 - Test in modern browsers such as Chrome, Firefox, Safari, and Edge.
 - Ensure semantic HTML and ARIA labels are used properly.
 
+---
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
+
+---
 
 ## Acknowledgments
 
