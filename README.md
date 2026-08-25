@@ -5,7 +5,7 @@ Sync lyrics to music, create timed LRC files, and export them easily directly in
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-3.1.1-brightgreen.svg)](#)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
-[![Website](https://img.shields.io/badge/website-hajirsync.app-3B82F6.svg)](https://hajirsync.haiere.workers.dev)
+[![Website](https://img.shields.io/badge/website-hajirsync.haiere.workers.dev-3B82F6.svg)](https://hajirsync.haiere.workers.dev)
 
 ---
 
